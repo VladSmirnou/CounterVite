@@ -1,5 +1,5 @@
-import { SuperButton } from '@/SuperButton';
-import { SettingsButtons } from '@/SettingsButtons';
+import { SuperButton } from '@/common/components/SuperButton/SuperButton';
+import { SettingsButtons } from '@/common/components/SettingsButtons/SettingsButtons';
 
 export default {
     component: SettingsButtons,

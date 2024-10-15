@@ -1,7 +1,4 @@
-export interface Repo {
-    getItem(key: string): string | null;
-    setItem<T>(key: string, value: T): void;
-}
+import { Repo } from '@/app/interfaces/repo';
 
 export class LocalStorageRepo implements Repo {
     getItem(key: string): string | null {

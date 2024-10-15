@@ -1,4 +1,4 @@
-import { SuperButton } from '@/SuperButton';
+import { SuperButton } from '@/common/components/SuperButton/SuperButton';
 
 export default {
     component: SuperButton,
