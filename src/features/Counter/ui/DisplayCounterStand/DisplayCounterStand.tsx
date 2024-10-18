@@ -9,7 +9,7 @@ import Grid from '@mui/material/Grid2';
 type Props = {
     minMaxValues: MinMaxValues;
     errorText: string | undefined;
-    settingsModeOn: boolean;
+    settingsMode: boolean;
     setSettingsMode?: () => void;
 };
 
@@ -18,14 +18,14 @@ export const DisplayCounterStand = memo(
         const {
             minMaxValues: { minValue, maxValue },
             errorText,
-            settingsModeOn,
+            settingsMode,
             setSettingsMode,
         } = props;
 
         const [value, setValue] = useState<number>(minValue);
 
         const counterV_lt_MaxV = value < maxValue;
-        const predicate = settingsModeOn || !!errorText;
+        const predicate = settingsMode || !!errorText;
         const incButtonDisabled = not(counterV_lt_MaxV) || predicate;
         const resetButtonDisabled = value === minValue || predicate;
 
@@ -63,7 +63,7 @@ export const DisplayCounterStand = memo(
                         <Scoreboard
                             counterValue={value}
                             counterV_lt_MaxV={counterV_lt_MaxV}
-                            settingsModeOn={settingsModeOn}
+                            settingsMode={settingsMode}
                             errorText={errorText}
                             setSettingsMode={setSettingsMode}
                         />
@@ -110,7 +110,7 @@ export const DisplayCounterStand = memo(
     (prevProps, newProps) => {
         if (
             prevProps.errorText === newProps.errorText &&
-            prevProps.settingsModeOn === newProps.settingsModeOn &&
+            prevProps.settingsMode === newProps.settingsMode &&
             prevProps.minMaxValues !== newProps.minMaxValues
         ) {
             return true;

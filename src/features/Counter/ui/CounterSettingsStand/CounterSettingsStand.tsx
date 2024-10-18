@@ -10,7 +10,7 @@ import Grid from '@mui/material/Grid2';
 type Props = {
     minMaxValues: MinMaxValues;
     errorData: ErrorData | null;
-    settingsModeOn: boolean;
+    settingsMode: boolean;
     setMinMaxValuesHandler: () => void;
     setValues: (fieldName: FieldNames, value: number) => void;
     setSettingsMode?: () => void;
@@ -21,7 +21,7 @@ export const CounterSettingsStand = (props: Props) => {
         minMaxValues: { minValue, maxValue },
         errorData,
         setMinMaxValuesHandler,
-        settingsModeOn,
+        settingsMode,
         setValues,
         setSettingsMode,
     } = props;
@@ -70,7 +70,7 @@ export const CounterSettingsStand = (props: Props) => {
                 <Paper variant="outlined" sx={{ paddingX: 3, paddingY: 2 }}>
                     <Button
                         variant="contained"
-                        disabled={not(settingsModeOn) || !!errorData}
+                        disabled={not(settingsMode) || !!errorData}
                         onClick={setMinMaxValuesHandler}
                         sx={{ display: 'block', mx: 'auto' }}
                     >

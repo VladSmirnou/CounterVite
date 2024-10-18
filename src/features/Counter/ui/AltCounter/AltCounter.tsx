@@ -80,7 +80,7 @@ export const AltCounter = ({ repo, fieldValueValidator }: Props) => {
                 <CounterSettingsStand
                     minMaxValues={minMaxValues}
                     setMinMaxValuesHandler={setMinMaxValuesHandler}
-                    settingsModeOn={settingsModeOn}
+                    settingsMode={settingsModeOn}
                     setValues={setValues}
                     errorData={errorData}
                     setSettingsMode={setSettingsMode}
@@ -89,7 +89,7 @@ export const AltCounter = ({ repo, fieldValueValidator }: Props) => {
                     key={minMaxValues.minValue}
                     minMaxValues={minMaxValues}
                     errorText={errorData?.error}
-                    settingsModeOn={settingsModeOn}
+                    settingsMode={settingsModeOn}
                     setSettingsMode={setSettingsMode}
                 />
             }

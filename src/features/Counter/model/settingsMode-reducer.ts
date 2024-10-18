@@ -1,5 +1,7 @@
+const initialState = false;
+
 export const settingsModeReducer = (
-    state: boolean,
+    state: boolean = initialState,
     action: SettingsAction,
 ): boolean => {
     switch (action.type) {

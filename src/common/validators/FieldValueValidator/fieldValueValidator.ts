@@ -1,6 +1,6 @@
-import { FieldValueValidator } from '@/app/Main';
+import { FieldValueValidator } from '@/app/interfaces/fieldValueValidator';
 import { Validator } from './validator';
-import { IncorrectFieldName } from '@/app/Main';
+import { IncorrectFieldName } from '@/common/types/app.types';
 import { ErrorText } from '@/common/types/app.types';
 import { not } from '@/common/not';
 

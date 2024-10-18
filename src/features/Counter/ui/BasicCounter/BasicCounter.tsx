@@ -1,25 +1,22 @@
 import { FieldValueValidator } from '@/app/interfaces/fieldValueValidator';
 import { Repo } from '@/app/interfaces/repo';
 import { FieldNames } from '@/common/enums/enums';
+import { useAppDispatch } from '@/common/hooks/useAppDispatch';
+import { useAppSelector } from '@/common/hooks/useAppSelector';
 import { not } from '@/common/not';
 import Grid from '@mui/material/Grid2';
-import { useEffect, useReducer } from 'react';
+import { useEffect } from 'react';
 import { demarshallMinMaxValues } from '../../lib/demarhsallMinMaxValues';
 import { getDefaultValues } from '../../lib/getDefaultValues';
+import { setErrorDataAC, setErrorNullAC } from '../../model/error-reducer';
+import { selectErrorData } from '../../model/errorSelector';
+import { setMinMaxValuesAC } from '../../model/minMaxValues-reducer';
+import { selectMinMaxValues } from '../../model/minMaxValuesSelector';
 import {
-    errorReducer,
-    setErrorDataAC,
-    setErrorNullAC,
-} from '../../model/error-reducer';
-import {
-    minMaxValuesReducer,
-    setMinMaxValuesAC,
-} from '../../model/minMaxValues-reducer';
-import {
-    settingsModeReducer,
     turnSettingsModeOffAC,
     turnSettingsModeOnAC,
 } from '../../model/settingsMode-reducer';
+import { selectSettingsMode } from '../../model/settingsModeSelecor';
 import { CounterSettingsStand } from '../CounterSettingsStand/CounterSettingsStand';
 import { DisplayCounterStand } from '../DisplayCounterStand/DisplayCounterStand';
 
@@ -31,26 +28,28 @@ type Props = {
 };
 
 export const BasicCounter = ({ repo, fieldValueValidator }: Props) => {
+    const dispatch = useAppDispatch();
+    const errorData = useAppSelector(selectErrorData);
+    const settingsMode = useAppSelector(selectSettingsMode);
+    const minMaxValues = useAppSelector(selectMinMaxValues);
+
+    useEffect(() => {
+        const root = document.getElementById('root') as HTMLElement;
+        root.style.backgroundColor = '#292c35';
+        return () => {
+            root.style.backgroundColor = 'white';
+        };
+    }, []);
+
     useEffect(() => {
         const storedValues = repo.getItem(STORED_VALUES);
         if (storedValues) {
             const minMaxValues = demarshallMinMaxValues(storedValues);
-            dispatchMinMaxValues(setMinMaxValuesAC(minMaxValues));
+            dispatch(setMinMaxValuesAC(minMaxValues));
         } else {
-            dispatchMinMaxValues(setMinMaxValuesAC(getDefaultValues()));
+            dispatch(setMinMaxValuesAC(getDefaultValues()));
         }
-    }, [repo]);
-
-    const [errorData, dispatchError] = useReducer(errorReducer, null);
-    const [settingsModeOn, dispatchSettingsMode] = useReducer(
-        settingsModeReducer,
-        false,
-    );
-    const [minMaxValues, dispatchMinMaxValues] = useReducer(
-        minMaxValuesReducer,
-        null,
-        getDefaultValues,
-    );
+    }, [repo, dispatch]);
 
     const setValues = (fieldName: FieldNames, value: number) => {
         const nextMinMaxValues = {
@@ -68,7 +67,7 @@ export const BasicCounter = ({ repo, fieldValueValidator }: Props) => {
         } else if (incorrectFieldData && not(errorData)) {
             const [incorrectFieldName, errorText] = incorrectFieldData;
 
-            dispatchError(
+            dispatch(
                 setErrorDataAC({
                     error: errorText,
                     incorrectFieldName,
@@ -76,19 +75,18 @@ export const BasicCounter = ({ repo, fieldValueValidator }: Props) => {
             );
             // I want to set incorrect values to the state once, so
             // that the user can see these values.
-            dispatchMinMaxValues(setMinMaxValuesAC(nextMinMaxValues));
+            dispatch(setMinMaxValuesAC(nextMinMaxValues));
         } else {
-            if (errorData) dispatchError(setErrorNullAC());
-            if (not(settingsModeOn))
-                dispatchSettingsMode(turnSettingsModeOnAC());
-            dispatchMinMaxValues(setMinMaxValuesAC(nextMinMaxValues));
+            if (errorData) dispatch(setErrorNullAC());
+            if (not(settingsMode)) dispatch(turnSettingsModeOnAC());
+            dispatch(setMinMaxValuesAC(nextMinMaxValues));
         }
         return;
     };
 
     const setMinMaxValuesHandler = () => {
-        dispatchMinMaxValues(setMinMaxValuesAC(minMaxValues));
-        dispatchSettingsMode(turnSettingsModeOffAC());
+        dispatch(setMinMaxValuesAC(minMaxValues));
+        dispatch(turnSettingsModeOffAC());
         repo.setItem(STORED_VALUES, minMaxValues);
     };
 
@@ -97,7 +95,7 @@ export const BasicCounter = ({ repo, fieldValueValidator }: Props) => {
             <CounterSettingsStand
                 minMaxValues={minMaxValues}
                 setMinMaxValuesHandler={setMinMaxValuesHandler}
-                settingsModeOn={settingsModeOn}
+                settingsMode={settingsMode}
                 setValues={setValues}
                 errorData={errorData}
             />
@@ -105,7 +103,7 @@ export const BasicCounter = ({ repo, fieldValueValidator }: Props) => {
                 key={minMaxValues.minValue}
                 minMaxValues={minMaxValues}
                 errorText={errorData?.error}
-                settingsModeOn={settingsModeOn}
+                settingsMode={settingsMode}
             />
         </Grid>
     );

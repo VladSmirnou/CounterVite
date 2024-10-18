@@ -1,7 +1,9 @@
 import { ErrorData } from '@/common/types/app.types';
 
+const initialState = null;
+
 export const errorReducer = (
-    state: ErrorData | null,
+    state: ErrorData | null = initialState,
     action: Action,
 ): ErrorData | null => {
     switch (action.type) {

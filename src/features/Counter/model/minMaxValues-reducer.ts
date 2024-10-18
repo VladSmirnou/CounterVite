@@ -1,7 +1,10 @@
+import { getDefaultValues } from '../lib/getDefaultValues';
 import { MinMaxValues } from '../lib/types/counter.types';
 
+const initialState = getDefaultValues();
+
 export const minMaxValuesReducer = (
-    state: MinMaxValues,
+    state: MinMaxValues = initialState,
     action: MinMaxValuesAction,
 ): MinMaxValues => {
     switch (action.type) {
