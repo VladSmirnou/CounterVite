@@ -1,11 +1,10 @@
 import { FieldNames } from '@/common/enums/enums';
 import { ErrorData } from '@/common/types/app.types';
-import Box from '@mui/material/Box';
-import { ChangeEvent } from 'react';
-// import TextField from '@mui/material/TextField';
 import { Input } from '@mui/material';
+import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import Typography from '@mui/material/Typography';
+import { ChangeEvent } from 'react';
 
 type Props = {
     initialValue: number;
@@ -30,7 +29,6 @@ export const ValuePanel = ({
         const nextValue = Number(value);
 
         if (isNaN(nextValue)) return;
-
         setValues(fieldName, nextValue);
     };
 

@@ -3,8 +3,8 @@ import App from './App.tsx';
 import { Main } from './Main.tsx';
 import { IntroPage } from './IntroPage.tsx';
 import { ErrorPage } from '../common/components/ErrorPage/ErrorPage.tsx';
-import { AltCounter } from '../features/Counter/ui/AltCounter/AltCounter.tsx';
-import { BasicCounter } from '../features/Counter/ui/BasicCounter/BasicCounter.tsx';
+import { AltCounter } from '../features/Counter/ui/Counter/CounterSpecies/AltCounter/AltCounter.tsx';
+import { BasicCounter } from '../features/Counter/ui/Counter/CounterSpecies/BasicCounter/BasicCounter.tsx';
 import { CounterPage } from '../features/Counter/ui/IntroPage/CounterPage.tsx';
 import { FieldNames } from '@/common/enums/enums';
 import { getLocalStorageRepo } from '@/common/repo/localstorage/localstorage';
@@ -12,6 +12,7 @@ import { ValueValidator } from '@/common/validators/FieldValueValidator/fieldVal
 import { ValidateBoth } from '@/common/validators/FieldValueValidator/validators/validateBoth';
 import { ValidateMax } from '@/common/validators/FieldValueValidator/validators/validateMax';
 import { ValidateMin } from '@/common/validators/FieldValueValidator/validators/validateMin';
+import { Counter } from '@/features/Counter/ui/Counter/Counter.tsx';
 
 const MIN_ALLOWED_VALUE = 0;
 
@@ -48,18 +49,20 @@ export const router = createBrowserRouter([
                     {
                         path: 'counter/basic',
                         element: (
-                            <BasicCounter
+                            <Counter
                                 repo={repo}
                                 fieldValueValidator={validator}
+                                CounterType={BasicCounter}
                             />
                         ),
                     },
                     {
                         path: 'counter/alt',
                         element: (
-                            <AltCounter
+                            <Counter
                                 repo={repo}
                                 fieldValueValidator={validator}
+                                CounterType={AltCounter}
                             />
                         ),
                     },

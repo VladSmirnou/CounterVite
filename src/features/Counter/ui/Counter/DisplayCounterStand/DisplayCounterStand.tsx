@@ -1,10 +1,10 @@
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import { memo, useCallback, useState } from 'react';
-import { not } from '../../../../common/not';
-import { MinMaxValues } from '../../lib/types/counter.types';
 import { Scoreboard } from './Scoreboard/Scoreboard';
 import Grid from '@mui/material/Grid2';
+import { MinMaxValues } from '@/features/Counter/lib/types/counter.types';
+import { not } from '@/common/not';
 
 type Props = {
     minMaxValues: MinMaxValues;

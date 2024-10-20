@@ -4,7 +4,7 @@ const initialState = null;
 
 export const errorReducer = (
     state: ErrorData | null = initialState,
-    action: Action,
+    action: ErrorActions,
 ): ErrorData | null => {
     switch (action.type) {
         case 'SET_ERROR_DATA': {
@@ -35,4 +35,4 @@ export const setErrorNullAC = () => {
 type SetErrorDataActionType = ReturnType<typeof setErrorDataAC>;
 type SetErrorNullActionType = ReturnType<typeof setErrorNullAC>;
 
-type Action = SetErrorDataActionType | SetErrorNullActionType;
+export type ErrorActions = SetErrorDataActionType | SetErrorNullActionType;
