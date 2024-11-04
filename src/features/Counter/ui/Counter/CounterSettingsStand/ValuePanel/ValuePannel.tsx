@@ -1,5 +1,4 @@
 import { FieldNames } from '@/common/enums/enums';
-import { ErrorData } from '@/common/types/app.types';
 import { Input } from '@mui/material';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -9,7 +8,7 @@ import { ChangeEvent } from 'react';
 type Props = {
     initialValue: number;
     labelText: string;
-    errorData: ErrorData | null;
+    fieldIsIncorrect: boolean;
     fieldName: FieldNames;
     setValues: (fieldName: FieldNames, value: number) => void;
 };
@@ -17,7 +16,7 @@ type Props = {
 export const ValuePanel = ({
     initialValue,
     labelText,
-    errorData,
+    fieldIsIncorrect,
     fieldName,
     setValues,
 }: Props) => {
@@ -34,16 +33,12 @@ export const ValuePanel = ({
 
     let finalBackgroundColor = 'white';
     let finalBorderColor = '#5ed1f5';
-    if (errorData) {
-        const { incorrectFieldName } = errorData;
-        if (
-            incorrectFieldName === FieldNames.BOTH ||
-            incorrectFieldName === fieldName
-        ) {
-            finalBackgroundColor = 'lightpink';
-            finalBorderColor = '#d73d3d';
-        }
+
+    if (fieldIsIncorrect) {
+        finalBackgroundColor = 'lightpink';
+        finalBorderColor = '#d73d3d';
     }
+
     const inputId = `${labelText}_value`;
 
     return (

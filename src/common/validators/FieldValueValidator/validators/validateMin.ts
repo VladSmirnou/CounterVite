@@ -27,7 +27,13 @@ export class ValidateMin implements Validator {
         return minValue >= this.#lowestAllowedValue;
     }
 
-    getIncorrectFieldNameAndErrorText(): [IncorrectFieldName, ErrorText] {
-        return [this.#incorrectFieldName, this.#errorText];
+    getIncorrectFieldNameAndErrorText(): {
+        fieldName: IncorrectFieldName;
+        errorText: string;
+    } {
+        return {
+            fieldName: this.#incorrectFieldName,
+            errorText: this.#errorText,
+        };
     }
 }

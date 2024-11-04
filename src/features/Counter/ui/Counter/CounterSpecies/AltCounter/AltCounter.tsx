@@ -7,25 +7,26 @@ import { turnSettingsModeOnAC } from '../../../../model/settingsMode-reducer';
 import { CounterSettingsStand } from '../../CounterSettingsStand/CounterSettingsStand';
 import { DisplayCounterStand } from '../../DisplayCounterStand/DisplayCounterStand';
 
-type Props = {
-    minMaxValues: MinMaxValues;
-    errorData: ErrorData | null;
-    settingsMode: boolean;
-    fieldValueValidator: FieldValueValidator;
-};
+// type Props = {
+//     minMaxValues: MinMaxValues;
+//     errorData: ErrorData | null;
+//     settingsMode: boolean;
+//     fieldValueValidator: FieldValueValidator;
+// };
 
-export const AltCounter = (props: Props) => {
-    const { minMaxValues, errorData, settingsMode, fieldValueValidator } =
-        props;
-    const dispatch = useAppDispatch();
+// export const AltCounter = (props: Props) => {
+export const AltCounter = () => {
+    // const { minMaxValues, errorData, settingsMode, fieldValueValidator } =
+    //     props;
+    // const dispatch = useAppDispatch();
 
-    const setSettingsMode = useCallback(() => {
-        dispatch(turnSettingsModeOnAC());
-    }, [dispatch]);
+    // const setSettingsMode = useCallback(() => {
+    //     dispatch(turnSettingsModeOnAC());
+    // }, [dispatch]);
 
     return (
         <div>
-            {settingsMode ?
+            {/* {settingsMode ?
                 <CounterSettingsStand
                     fieldValueValidator={fieldValueValidator}
                     minMaxValues={minMaxValues}
@@ -40,7 +41,7 @@ export const AltCounter = (props: Props) => {
                     settingsMode={settingsMode}
                     setSettingsMode={setSettingsMode}
                 />
-            }
+            } */}
         </div>
     );
 };

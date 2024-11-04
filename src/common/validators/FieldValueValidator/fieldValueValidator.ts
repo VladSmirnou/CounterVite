@@ -1,8 +1,7 @@
 import { FieldValueValidator } from '@/app/interfaces/fieldValueValidator';
-import { Validator } from './validator';
-import { IncorrectFieldName } from '@/common/types/app.types';
-import { ErrorText } from '@/common/types/app.types';
 import { not } from '@/common/not';
+import { IncorrectFieldName } from '@/common/types/app.types';
+import { Validator } from './validator';
 
 export class ValueValidator implements FieldValueValidator {
     #validators: Array<Validator>;
@@ -14,7 +13,12 @@ export class ValueValidator implements FieldValueValidator {
     validateFieldValues(
         minValue: number,
         maxValue: number,
-    ): [IncorrectFieldName, ErrorText] | undefined {
+    ):
+        | {
+              fieldName: IncorrectFieldName;
+              errorText: string;
+          }
+        | undefined {
         for (const validator of this.#validators) {
             const valuesAreValid = validator.validateValues(minValue, maxValue);
             if (not(valuesAreValid))

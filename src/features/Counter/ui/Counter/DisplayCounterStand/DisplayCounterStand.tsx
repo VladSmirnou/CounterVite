@@ -1,120 +1,94 @@
+import { FieldValueValidator } from '@/app/interfaces/fieldValueValidator';
+import { useAppDispatch } from '@/common/hooks/useAppDispatch';
+import { useAppSelector } from '@/common/hooks/useAppSelector';
+import {
+    incrementMinValueAC,
+    resetMinMaxValuesAC,
+} from '@/features/Counter/model/minMaxValues-reducer';
+import { selectMinMaxValues } from '@/features/Counter/model/minMaxValuesSelector';
+import { selectCounterStatus } from '@/features/Counter/model/select-counter-status';
 import Button from '@mui/material/Button';
-import Paper from '@mui/material/Paper';
-import { memo, useCallback, useState } from 'react';
-import { Scoreboard } from './Scoreboard/Scoreboard';
 import Grid from '@mui/material/Grid2';
-import { MinMaxValues } from '@/features/Counter/lib/types/counter.types';
-import { not } from '@/common/not';
+import Paper from '@mui/material/Paper';
+import { Scoreboard } from './Scoreboard/Scoreboard';
 
 type Props = {
-    minMaxValues: MinMaxValues;
-    errorText: string | undefined;
-    settingsMode: boolean;
-    setSettingsMode?: () => void;
+    fieldValueValidator: FieldValueValidator;
 };
 
-export const DisplayCounterStand = memo(
-    function DisplayCounterStand(props: Props) {
-        const {
-            minMaxValues: { minValue, maxValue },
-            errorText,
-            settingsMode,
-            setSettingsMode,
-        } = props;
+export const DisplayCounterStand = (props: Props) => {
+    const { fieldValueValidator } = props;
+    const counterStatus = useAppSelector(selectCounterStatus);
 
-        const [value, setValue] = useState<number>(minValue);
+    const dispatch = useAppDispatch();
 
-        const counterV_lt_MaxV = value < maxValue;
-        const predicate = settingsMode || !!errorText;
-        const incButtonDisabled = not(counterV_lt_MaxV) || predicate;
-        const resetButtonDisabled = value === minValue || predicate;
+    const { minValue, maxValue, initialMinValue } =
+        useAppSelector(selectMinMaxValues);
 
-        const handleIncrementClick = useCallback(() => {
-            if (counterV_lt_MaxV) setValue((prev) => prev + 1);
-        }, [counterV_lt_MaxV]);
+    const errorData = fieldValueValidator.validateFieldValues(
+        minValue,
+        maxValue,
+    );
 
-        const handleResetClick = useCallback(
-            () => setValue(minValue),
-            [minValue],
-        );
+    const minValue_eq_maxValue = minValue === maxValue;
+    const counterStatusIsNotIdle = counterStatus !== 'idle';
 
-        const altCounterStyles = {
-            width: '100%',
-            maxWidth: 430,
-            margin: '0 auto',
-        };
+    const incButtonDisabled = minValue >= maxValue || counterStatusIsNotIdle;
+    const resetButtonDisabled =
+        minValue === initialMinValue || counterStatusIsNotIdle;
 
-        return (
-            <Grid size={4}>
-                <Paper
-                    variant="outlined"
-                    sx={{
-                        height: '100%',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        padding: 2,
-                        ...(setSettingsMode ? altCounterStyles : {}),
-                    }}
-                >
-                    <Paper
-                        variant="outlined"
-                        sx={{ flexGrow: 1, marginBottom: 2 }}
-                    >
-                        <Scoreboard
-                            counterValue={value}
-                            counterV_lt_MaxV={counterV_lt_MaxV}
-                            settingsMode={settingsMode}
-                            errorText={errorText}
-                            setSettingsMode={setSettingsMode}
-                        />
-                    </Paper>
-                    <Paper variant="outlined" sx={{ paddingX: 3, paddingY: 2 }}>
-                        <Grid container spacing={6}>
-                            <Grid size="grow">
-                                <Button
-                                    onClick={handleIncrementClick}
-                                    disabled={incButtonDisabled}
-                                    variant="contained"
-                                    sx={{ width: '100%' }}
-                                >
-                                    inc
-                                </Button>
-                            </Grid>
-                            <Grid size="grow">
-                                <Button
-                                    onClick={handleResetClick}
-                                    disabled={resetButtonDisabled}
-                                    variant="contained"
-                                    sx={{ width: '100%' }}
-                                >
-                                    reset
-                                </Button>
-                            </Grid>
-                            {setSettingsMode ?
-                                <Grid size="grow">
-                                    <Button
-                                        onClick={setSettingsMode}
-                                        variant="contained"
-                                        sx={{ width: '100%' }}
-                                    >
-                                        set
-                                    </Button>
-                                </Grid>
-                            :   ''}
-                        </Grid>
-                    </Paper>
+    const handleIncrementClick = () => {
+        dispatch(incrementMinValueAC());
+    };
+
+    const handleResetClick = () => {
+        dispatch(resetMinMaxValuesAC());
+    };
+
+    return (
+        <Grid size={4}>
+            <Paper
+                variant="outlined"
+                sx={{
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    padding: 2,
+                }}
+            >
+                <Paper variant="outlined" sx={{ flexGrow: 1, marginBottom: 2 }}>
+                    <Scoreboard
+                        minValue_eq_maxValue={minValue_eq_maxValue}
+                        counterValue={minValue}
+                        counterStatus={counterStatus}
+                        errorText={errorData?.errorText}
+                    />
                 </Paper>
-            </Grid>
-        );
-    },
-    (prevProps, newProps) => {
-        if (
-            prevProps.errorText === newProps.errorText &&
-            prevProps.settingsMode === newProps.settingsMode &&
-            prevProps.minMaxValues !== newProps.minMaxValues
-        ) {
-            return true;
-        }
-        return false;
-    },
-);
+                <Paper variant="outlined" sx={{ paddingX: 3, paddingY: 2 }}>
+                    <Grid container spacing={6}>
+                        <Grid size="grow">
+                            <Button
+                                onClick={handleIncrementClick}
+                                disabled={incButtonDisabled}
+                                variant="contained"
+                                sx={{ width: '100%' }}
+                            >
+                                inc
+                            </Button>
+                        </Grid>
+                        <Grid size="grow">
+                            <Button
+                                onClick={handleResetClick}
+                                disabled={resetButtonDisabled}
+                                variant="contained"
+                                sx={{ width: '100%' }}
+                            >
+                                reset
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Paper>
+            </Paper>
+        </Grid>
+    );
+};

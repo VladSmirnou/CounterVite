@@ -1,8 +1,13 @@
-import { ErrorText, IncorrectFieldName } from '@/common/types/app.types';
+import { IncorrectFieldName } from '@/common/types/app.types';
 
 export interface FieldValueValidator {
     validateFieldValues(
         minValue: number,
         maxValue: number,
-    ): [IncorrectFieldName, ErrorText] | undefined;
+    ):
+        | {
+              fieldName: IncorrectFieldName;
+              errorText: string;
+          }
+        | undefined;
 }

@@ -1,39 +1,78 @@
 import { AppDispatch } from '@/app/store';
 import { getDefaultValues } from '../lib/getDefaultValues';
-import { MinMaxValues } from '../lib/types/counter.types';
 import { getLocalStorageRepo } from '@/common/repo/localstorage/localstorage';
 
-const initialState = getDefaultValues();
+const defaultValues = getDefaultValues();
+const initialState = {
+    ...defaultValues,
+    initialMinValue: defaultValues.minValue,
+};
+
+type State = typeof initialState;
+
 const repo = getLocalStorageRepo();
 const STORED_VALUES = 'storedValues';
 
 export const minMaxValuesReducer = (
-    state: MinMaxValues = initialState,
+    state: State = initialState,
     action: MinMaxValuesActions,
-): MinMaxValues => {
+): State => {
     switch (action.type) {
         case 'SET_MIN_MAX_VALUES': {
-            return action.payload;
+            return {
+                ...action.payload,
+                initialMinValue: action.payload.minValue,
+            };
+        }
+        case 'INCREMENT_MIN_VALUE': {
+            return { ...state, minValue: state.minValue + 1 };
+        }
+        case 'RESET_MIN_MAX_VALUES': {
+            return { ...state, minValue: state.initialMinValue };
         }
         default:
             return state;
     }
 };
 
-export const setMinMaxValuesAC = (payload: MinMaxValues) => {
-    return {
-        type: 'SET_MIN_MAX_VALUES',
-        payload,
-    } as const;
-};
-
-export const setMinMaxValuesTC = (payload: MinMaxValues) => {
-    return (dispatch: AppDispatch) => {
-        dispatch(setMinMaxValuesAC(payload));
+export const setMinMaxValuesTC =
+    (payload: { minValue: number; maxValue: number }) =>
+    (dispatch: AppDispatch) => {
         repo.setItem(STORED_VALUES, payload);
+        dispatch(setMinMaxValuesAC(payload));
+    };
+
+export const setMinMaxValuesAC = (payload: {
+    minValue: number;
+    maxValue: number;
+}) => {
+    return {
+        type: 'SET_MIN_MAX_VALUES' as const,
+        payload,
     };
 };
 
-export type SetMinMaxValues = ReturnType<typeof setMinMaxValuesAC>;
+export const incrementMinValueAC = () => {
+    return {
+        type: 'INCREMENT_MIN_VALUE' as const,
+    };
+};
 
-export type MinMaxValuesActions = SetMinMaxValues;
+export const resetMinMaxValuesAC = () => {
+    return {
+        type: 'RESET_MIN_MAX_VALUES' as const,
+    };
+};
+
+export type SetMinMaxValuesActionType = ReturnType<typeof setMinMaxValuesAC>;
+export type IncrementMinValueActionType = ReturnType<
+    typeof incrementMinValueAC
+>;
+export type ResetMinMaxValuesActionType = ReturnType<
+    typeof resetMinMaxValuesAC
+>;
+
+export type MinMaxValuesActions =
+    | SetMinMaxValuesActionType
+    | IncrementMinValueActionType
+    | ResetMinMaxValuesActionType;
