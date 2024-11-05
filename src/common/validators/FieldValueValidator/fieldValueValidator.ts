@@ -1,5 +1,5 @@
-import { FieldValueValidator } from '@/app/interfaces/fieldValueValidator';
-import { not } from '@/common/not';
+import { FieldValueValidator } from '@/features/Counter/lib/interfaces/fieldValueValidator';
+import { not } from '@/common/utils/not';
 import { IncorrectFieldName } from '@/common/types/app.types';
 import { Validator } from './validator';
 

@@ -1,16 +1,17 @@
-import { FieldValueValidator } from '@/app/interfaces/fieldValueValidator';
+import { FieldValueValidator } from '@/features/Counter/lib/interfaces/fieldValueValidator';
 import { useAppDispatch } from '@/common/hooks/useAppDispatch';
 import { useAppSelector } from '@/common/hooks/useAppSelector';
 import {
     incrementMinValueAC,
     resetMinMaxValuesAC,
-} from '@/features/Counter/model/minMaxValues-reducer';
-import { selectMinMaxValues } from '@/features/Counter/model/minMaxValuesSelector';
+} from '@/features/Counter/model/min-max-values-reducer';
+import { selectMinMaxValues } from '@/features/Counter/model/min-max-values-selector';
 import { selectCounterStatus } from '@/features/Counter/model/select-counter-status';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid2';
 import Paper from '@mui/material/Paper';
 import { Scoreboard } from './Scoreboard/Scoreboard';
+import { CounterStatus } from '@/features/Counter/lib/enums';
 
 type Props = {
     fieldValueValidator: FieldValueValidator;
@@ -31,7 +32,7 @@ export const DisplayCounterStand = (props: Props) => {
     );
 
     const minValue_eq_maxValue = minValue === maxValue;
-    const counterStatusIsNotIdle = counterStatus !== 'idle';
+    const counterStatusIsNotIdle = counterStatus !== CounterStatus.IDLE;
 
     const incButtonDisabled = minValue >= maxValue || counterStatusIsNotIdle;
     const resetButtonDisabled =

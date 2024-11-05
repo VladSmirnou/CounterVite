@@ -1,4 +1,4 @@
-import { FieldValueValidator } from '@/app/interfaces/fieldValueValidator';
+import { FieldValueValidator } from '@/features/Counter/lib/interfaces/fieldValueValidator';
 import Grid from '@mui/material/Grid2';
 import { CounterSettingsStand } from '../../CounterSettingsStand/CounterSettingsStand';
 import { DisplayCounterStand } from '../../DisplayCounterStand/DisplayCounterStand';

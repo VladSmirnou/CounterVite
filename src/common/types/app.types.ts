@@ -1,4 +1,4 @@
-import { FieldNames } from '../enums/enums';
+import { FieldNames } from '@/features/Counter/lib/enums';
 
 export type ErrorText = string;
 

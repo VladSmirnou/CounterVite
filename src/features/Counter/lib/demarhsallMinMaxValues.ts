@@ -1,5 +1,5 @@
 import { MinMaxValues } from './types/counter.types';
-import { not } from '@/common/not';
+import { not } from '@/common/utils/not';
 
 export const demarshallMinMaxValues = (
     storedValues: string | null,

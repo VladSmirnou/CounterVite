@@ -1,5 +1,5 @@
+import { CounterStatus } from '@/features/Counter/lib/enums';
 import Typography from '@mui/material/Typography';
-import { CounterStatus } from '@/features/Counter/model/counter-status-reducer';
 
 type Props = {
     minValue_eq_maxValue: boolean;
@@ -14,30 +14,30 @@ export const Scoreboard = ({
     counterStatus,
     minValue_eq_maxValue,
 }: Props) => {
-    let scoreBoardTextColor: string = '#5ed1f5';
+    let scoreboardTextColor = '#5ed1f5';
 
-    if (counterStatus === 'error' || minValue_eq_maxValue)
-        scoreBoardTextColor = 'red';
+    if (counterStatus === CounterStatus.ERROR || minValue_eq_maxValue)
+        scoreboardTextColor = 'red';
 
-    const scoreBoardText =
-        counterStatus === 'error' ? errorText
-        : counterStatus === 'typing' ? 'Enter values and press set'
+    const scoreboardText =
+        counterStatus === CounterStatus.ERROR ? errorText
+        : counterStatus === CounterStatus.TYPING ? 'Enter values and press set'
         : counterValue;
 
     return (
         <Typography
             component={'p'}
-            variant={counterStatus === 'typing' ? 'h5' : 'h2'}
+            variant={counterStatus === CounterStatus.TYPING ? 'h5' : 'h2'}
             sx={{
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: counterStatus === 'typing' ? 148 : '100%',
+                height: counterStatus === CounterStatus.TYPING ? 148 : '100%',
                 fontWeight: 900,
-                color: scoreBoardTextColor,
+                color: scoreboardTextColor,
             }}
         >
-            {scoreBoardText}
+            {scoreboardText}
         </Typography>
     );
 };

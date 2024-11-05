@@ -1,14 +1,13 @@
 import { getLocalStorageRepo } from '@/common/repo/localstorage/localstorage';
 import { demarshallMinMaxValues } from '@/features/Counter/lib/demarhsallMinMaxValues';
 import {
-    CounterStatus,
     CounterStatusActions,
     counterStatusReducer,
 } from '@/features/Counter/model/counter-status-reducer';
 import {
     MinMaxValuesActions,
     minMaxValuesReducer,
-} from '@/features/Counter/model/minMaxValues-reducer';
+} from '@/features/Counter/model/min-max-values-reducer';
 import {
     applyMiddleware,
     combineReducers,
@@ -16,6 +15,7 @@ import {
 } from 'redux';
 import { thunk, ThunkDispatch } from 'redux-thunk';
 import { getDefaultValues } from '@/features/Counter/lib/getDefaultValues';
+import { CounterStatus } from '@/features/Counter/lib/enums';
 
 const STORED_VALUES = 'storedValues';
 const repo = getLocalStorageRepo();
@@ -23,6 +23,7 @@ const repo = getLocalStorageRepo();
 const storedValues = repo.getItem(STORED_VALUES);
 
 const minMaxValues = demarshallMinMaxValues(storedValues) || getDefaultValues();
+
 const preloadedState = {
     status: 'idle' as CounterStatus,
     minMaxValues: {
@@ -38,7 +39,7 @@ const rootReducer = combineReducers({
 
 export const store = createStore(
     rootReducer,
-    //@ts-expect-error duno why it doesn't work when it should
+    //@ts-expect-error dunno why it doesn't work when it should
     preloadedState,
     applyMiddleware(thunk),
 );

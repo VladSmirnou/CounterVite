@@ -1,6 +1,4 @@
-import { Repo } from '@/app/interfaces/repo';
-
-class LocalStorageRepo implements Repo {
+class LocalStorageRepo {
     getItem(key: string): string | null {
         return localStorage.getItem(key);
     }

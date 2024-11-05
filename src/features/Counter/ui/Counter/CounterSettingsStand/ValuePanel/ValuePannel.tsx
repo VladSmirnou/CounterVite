@@ -1,4 +1,4 @@
-import { FieldNames } from '@/common/enums/enums';
+import { FieldNames } from '@/features/Counter/lib/enums';
 import { Input } from '@mui/material';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { ChangeEvent } from 'react';
 
 type Props = {
-    initialValue: number;
+    value: number;
     labelText: string;
     fieldIsIncorrect: boolean;
     fieldName: FieldNames;
@@ -14,7 +14,7 @@ type Props = {
 };
 
 export const ValuePanel = ({
-    initialValue,
+    value,
     labelText,
     fieldIsIncorrect,
     fieldName,
@@ -61,7 +61,7 @@ export const ValuePanel = ({
             <Input
                 id={inputId}
                 type="number"
-                value={initialValue}
+                value={value}
                 onChange={handleChange}
                 sx={{
                     all: 'revert',

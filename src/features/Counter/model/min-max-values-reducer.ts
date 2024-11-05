@@ -18,16 +18,16 @@ export const minMaxValuesReducer = (
     action: MinMaxValuesActions,
 ): State => {
     switch (action.type) {
-        case 'SET_MIN_MAX_VALUES': {
+        case 'COUNTER_VALUES/SET_MIN_MAX_VALUES': {
             return {
                 ...action.payload,
                 initialMinValue: action.payload.minValue,
             };
         }
-        case 'INCREMENT_MIN_VALUE': {
+        case 'COUNTER_VALUES/INCREMENT_MIN_VALUE': {
             return { ...state, minValue: state.minValue + 1 };
         }
-        case 'RESET_MIN_MAX_VALUES': {
+        case 'COUNTER_VALUES/RESET_MIN_MAX_VALUES': {
             return { ...state, minValue: state.initialMinValue };
         }
         default:
@@ -47,20 +47,20 @@ export const setMinMaxValuesAC = (payload: {
     maxValue: number;
 }) => {
     return {
-        type: 'SET_MIN_MAX_VALUES' as const,
+        type: 'COUNTER_VALUES/SET_MIN_MAX_VALUES' as const,
         payload,
     };
 };
 
 export const incrementMinValueAC = () => {
     return {
-        type: 'INCREMENT_MIN_VALUE' as const,
+        type: 'COUNTER_VALUES/INCREMENT_MIN_VALUE' as const,
     };
 };
 
 export const resetMinMaxValuesAC = () => {
     return {
-        type: 'RESET_MIN_MAX_VALUES' as const,
+        type: 'COUNTER_VALUES/RESET_MIN_MAX_VALUES' as const,
     };
 };
 

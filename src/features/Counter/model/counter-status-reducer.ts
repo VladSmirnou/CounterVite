@@ -1,4 +1,5 @@
-export type CounterStatus = 'idle' | 'error' | 'typing';
+import { CounterStatus } from '../lib/enums';
+
 const initialState = 'idle' as CounterStatus;
 
 export const counterStatusReducer = (
