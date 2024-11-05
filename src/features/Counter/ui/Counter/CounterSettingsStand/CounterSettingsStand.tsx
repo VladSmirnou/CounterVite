@@ -1,82 +1,29 @@
-import { FieldValueValidator } from '@/features/Counter/lib/interfaces/fieldValueValidator';
-import { FieldNames } from '@/features/Counter/lib/enums';
-import { useAppDispatch } from '@/common/hooks/useAppDispatch';
 import { useAppSelector } from '@/common/hooks/useAppSelector';
-import { setCounterStatusAC } from '@/features/Counter/model/counter-status-reducer';
+import { CounterStatus, FieldNames } from '@/features/Counter/lib/enums/enums';
+import { FieldValuesValidator } from '@/features/Counter/lib/interfaces/fieldValueValidator';
 import { selectCounterStatus } from '@/features/Counter/model/select-counter-status';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid2';
 import Paper from '@mui/material/Paper';
-import { useState } from 'react';
-import {
-    setMinMaxValuesAC,
-    setMinMaxValuesTC,
-} from '../../../model/min-max-values-reducer';
+import { useMinMaxValues } from './ValuePanel/hooks/useMinMaxValues';
 import { ValuePanel } from './ValuePanel/ValuePannel';
-import { getMinMaxValues } from '@/app/store';
-import { CounterStatus } from '@/features/Counter/lib/enums';
 
 type Props = {
-    fieldValueValidator: FieldValueValidator;
+    fieldValuesValidator: FieldValuesValidator;
+    counterSpecificStyles?: { [key: string]: unknown };
+    validateFieldValue: (value: string) => boolean;
 };
 
 export const CounterSettingsStand = (props: Props) => {
-    const dispatch = useAppDispatch();
+    const { fieldValuesValidator, counterSpecificStyles, validateFieldValue } =
+        props;
     const counterStatus = useAppSelector(selectCounterStatus);
 
-    const { fieldValueValidator } = props;
-
-    const [localMinMaxValues, setLocalMinMaxValues] = useState(getMinMaxValues);
-
+    const { localMinMaxValues, setValues, setMinMaxValuesHandler } =
+        useMinMaxValues(counterStatus);
     const { minValue, maxValue } = localMinMaxValues;
 
-    const setLocalValues = (fieldName: FieldNames, value: number) => {
-        const nextMinMaxValues = {
-            ...localMinMaxValues,
-            [fieldName === FieldNames.MIN ? 'minValue' : 'maxValue']: value,
-        };
-
-        const incorrectFieldData = fieldValueValidator.validateFieldValues(
-            nextMinMaxValues.minValue,
-            nextMinMaxValues.maxValue,
-        );
-
-        if (incorrectFieldData && counterStatus === CounterStatus.ERROR) {
-            return;
-        } else if (
-            incorrectFieldData &&
-            counterStatus !== CounterStatus.ERROR
-        ) {
-            // I want to set incorrect values to the state once, so
-            // that the user can see these values, and also to the store,
-            // so that I don't have to store the error data, and can
-            // calculate it in DisplayCounterStand
-
-            dispatch(setCounterStatusAC(CounterStatus.ERROR));
-            dispatch(setMinMaxValuesAC(nextMinMaxValues));
-            setLocalMinMaxValues(nextMinMaxValues);
-        } else {
-            if (counterStatus === CounterStatus.ERROR) {
-                dispatch(setMinMaxValuesAC(nextMinMaxValues));
-            }
-            dispatch(setCounterStatusAC(CounterStatus.TYPING));
-            setLocalMinMaxValues(nextMinMaxValues);
-        }
-        return;
-    };
-
-    const setMinMaxValuesHandler = () => {
-        dispatch(setCounterStatusAC(CounterStatus.IDLE));
-        dispatch(setMinMaxValuesTC(localMinMaxValues));
-    };
-
-    // const altCounterStyles = {
-    //     width: '100%',
-    //     maxWidth: 430,
-    //     margin: '0 auto',
-    // };
-
-    const incorrectFieldData = fieldValueValidator.validateFieldValues(
+    const incorrectFieldData = fieldValuesValidator.validateFieldValues(
         minValue,
         maxValue,
     );
@@ -88,6 +35,7 @@ export const CounterSettingsStand = (props: Props) => {
                 variant="outlined"
                 sx={{
                     padding: 2,
+                    ...counterSpecificStyles,
                 }}
             >
                 <Paper
@@ -109,7 +57,8 @@ export const CounterSettingsStand = (props: Props) => {
                             incorrectFieldName === FieldNames.BOTH
                         }
                         fieldName={FieldNames.MAX}
-                        setValues={setLocalValues}
+                        setValues={setValues}
+                        validateFieldValue={validateFieldValue}
                     />
                     <ValuePanel
                         value={minValue}
@@ -119,7 +68,8 @@ export const CounterSettingsStand = (props: Props) => {
                             incorrectFieldName === FieldNames.BOTH
                         }
                         fieldName={FieldNames.MIN}
-                        setValues={setLocalValues}
+                        setValues={setValues}
+                        validateFieldValue={validateFieldValue}
                     />
                 </Paper>
                 <Paper variant="outlined" sx={{ paddingX: 3, paddingY: 2 }}>

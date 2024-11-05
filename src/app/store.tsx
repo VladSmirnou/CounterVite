@@ -1,5 +1,5 @@
 import { getLocalStorageRepo } from '@/common/repo/localstorage/localstorage';
-import { demarshallMinMaxValues } from '@/features/Counter/lib/demarhsallMinMaxValues';
+import { demarshallMinMaxValues } from '@/features/Counter/lib/utils/demarhsallMinMaxValues';
 import {
     CounterStatusActions,
     counterStatusReducer,
@@ -15,7 +15,7 @@ import {
 } from 'redux';
 import { thunk, ThunkDispatch } from 'redux-thunk';
 import { getDefaultValues } from '@/features/Counter/lib/getDefaultValues';
-import { CounterStatus } from '@/features/Counter/lib/enums';
+import { CounterStatus } from '@/features/Counter/lib/enums/enums';
 
 const STORED_VALUES = 'storedValues';
 const repo = getLocalStorageRepo();
@@ -27,7 +27,7 @@ const minMaxValues = demarshallMinMaxValues(storedValues) || getDefaultValues();
 const preloadedState = {
     status: 'idle' as CounterStatus,
     minMaxValues: {
-        initialMinValue: 0,
+        initialMinValue: minMaxValues.minValue,
         ...minMaxValues,
     },
 };
@@ -44,10 +44,18 @@ export const store = createStore(
     applyMiddleware(thunk),
 );
 
+// when I go to another counter's link in the browser,
+// it is considered as an initial load (the whole app is destroyed)
+// (even when pressing browser history arrows)
+
+// when I to the 'home' page, then my components are unmounting,
+// but the store is not deleted.
+
 export const getMinMaxValues = () => {
     const minMaxValues = store.getState().minMaxValues;
-    const { minValue, maxValue } = minMaxValues;
-    return { minValue, maxValue };
+    // get initial min value from the store when user swaps counters
+    const { initialMinValue, maxValue } = minMaxValues;
+    return { minValue: initialMinValue, maxValue };
 };
 
 type AppActions = MinMaxValuesActions | CounterStatusActions;

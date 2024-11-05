@@ -1,9 +1,9 @@
-import { FieldValueValidator } from '@/features/Counter/lib/interfaces/fieldValueValidator';
+import { FieldValuesValidator } from '@/features/Counter/lib/interfaces/fieldValueValidator';
 import { not } from '@/common/utils/not';
-import { IncorrectFieldName } from '@/common/types/app.types';
-import { Validator } from './validator';
+import { IncorrectFieldName } from '@/features/Counter/lib/types/counter.types';
+import { Validator } from './validator/validator';
 
-export class ValueValidator implements FieldValueValidator {
+export class ValueValidator implements FieldValuesValidator {
     #validators: Array<Validator>;
 
     constructor(classes: Array<Validator>) {

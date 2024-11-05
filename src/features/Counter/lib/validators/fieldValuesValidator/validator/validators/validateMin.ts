@@ -1,6 +1,5 @@
+import { IncorrectFieldName } from '@/features/Counter/lib/types/counter.types';
 import { Validator } from '../validator';
-import { IncorrectFieldName } from '@/common/types/app.types';
-import { ErrorText } from '@/common/types/app.types';
 
 export class ValidateMin extends Validator {
     #lowestAllowedValue: number;
@@ -8,7 +7,7 @@ export class ValidateMin extends Validator {
     constructor(
         incFieldName: IncorrectFieldName,
         lowestAllVal: number,
-        errorText: ErrorText,
+        errorText: string,
     ) {
         super(incFieldName, errorText);
         this.#lowestAllowedValue = lowestAllVal;

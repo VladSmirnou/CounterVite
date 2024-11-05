@@ -1,6 +1,6 @@
-import { IncorrectFieldName } from '@/common/types/app.types';
+import { IncorrectFieldName } from '@/features/Counter/lib/types/counter.types';
 
-export interface FieldValueValidator {
+export interface FieldValuesValidator {
     validateFieldValues(
         minValue: number,
         maxValue: number,

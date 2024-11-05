@@ -1,10 +1,10 @@
-import { ErrorText, IncorrectFieldName } from '@/common/types/app.types';
+import { IncorrectFieldName } from '@/features/Counter/lib/types/counter.types';
 
 export abstract class Validator {
     #incorrectFieldName: IncorrectFieldName;
-    #errorText: ErrorText;
+    #errorText: string;
 
-    constructor(incFieldName: IncorrectFieldName, errorText: ErrorText) {
+    constructor(incFieldName: IncorrectFieldName, errorText: string) {
         this.#incorrectFieldName = incFieldName;
         this.#errorText = errorText;
     }

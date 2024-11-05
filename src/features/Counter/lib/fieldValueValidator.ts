@@ -1,12 +1,12 @@
-import { ValueValidator } from '@/common/validators/FieldValueValidator/fieldValueValidator';
-import { ValidateBoth } from '@/common/validators/FieldValueValidator/validators/validateBoth';
-import { ValidateMax } from '@/common/validators/FieldValueValidator/validators/validateMax';
-import { ValidateMin } from '@/common/validators/FieldValueValidator/validators/validateMin';
-import { FieldNames } from './enums';
+import { ValueValidator } from '@/features/Counter/lib/validators/fieldValuesValidator/fieldValuesValidator';
+import { FieldNames } from './enums/enums';
+import { ValidateBoth } from './validators/fieldValuesValidator/validator/validators/validateBoth';
+import { ValidateMax } from './validators/fieldValuesValidator/validator/validators/validateMax';
+import { ValidateMin } from './validators/fieldValuesValidator/validator/validators/validateMin';
 
 const MIN_ALLOWED_VALUE = 0;
 
-export const fieldValueValidator = new ValueValidator([
+export const fieldValuesValidator = new ValueValidator([
     new ValidateBoth(FieldNames.BOTH, 'Min value cannot be equal to max value'),
     new ValidateMin(
         FieldNames.MIN,

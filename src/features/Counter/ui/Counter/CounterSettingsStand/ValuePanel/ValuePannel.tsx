@@ -1,4 +1,4 @@
-import { FieldNames } from '@/features/Counter/lib/enums';
+import { FieldNames } from '@/features/Counter/lib/enums/enums';
 import { Input } from '@mui/material';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
@@ -11,24 +11,24 @@ type Props = {
     fieldIsIncorrect: boolean;
     fieldName: FieldNames;
     setValues: (fieldName: FieldNames, value: number) => void;
+    validateFieldValue: (value: string) => boolean;
 };
 
-export const ValuePanel = ({
-    value,
-    labelText,
-    fieldIsIncorrect,
-    fieldName,
-    setValues,
-}: Props) => {
+export const ValuePanel = (props: Props) => {
+    const {
+        value,
+        labelText,
+        fieldIsIncorrect,
+        fieldName,
+        setValues,
+        validateFieldValue,
+    } = props;
+
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.currentTarget.value;
-        // Number('') === 0, and not NaN
-        if (value === '') return;
-
-        const nextValue = Number(value);
-
-        if (isNaN(nextValue)) return;
-        setValues(fieldName, nextValue);
+        const valueIsInvalid = validateFieldValue(value);
+        if (valueIsInvalid) return;
+        setValues(fieldName, Number(value));
     };
 
     let finalBackgroundColor = 'white';

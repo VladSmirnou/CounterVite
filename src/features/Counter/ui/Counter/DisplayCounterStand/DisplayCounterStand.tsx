@@ -1,50 +1,33 @@
-import { FieldValueValidator } from '@/features/Counter/lib/interfaces/fieldValueValidator';
-import { useAppDispatch } from '@/common/hooks/useAppDispatch';
-import { useAppSelector } from '@/common/hooks/useAppSelector';
-import {
-    incrementMinValueAC,
-    resetMinMaxValuesAC,
-} from '@/features/Counter/model/min-max-values-reducer';
-import { selectMinMaxValues } from '@/features/Counter/model/min-max-values-selector';
-import { selectCounterStatus } from '@/features/Counter/model/select-counter-status';
-import Button from '@mui/material/Button';
+import { FieldValuesValidator } from '@/features/Counter/lib/interfaces/fieldValueValidator';
+import { RenderButtonsProps } from '@/features/Counter/lib/types/counter.types';
 import Grid from '@mui/material/Grid2';
 import Paper from '@mui/material/Paper';
+import { useDisplayStatus } from './hooks/useDisplayStatus';
+import { useMinMaxValues } from './hooks/useMinMaxValues';
 import { Scoreboard } from './Scoreboard/Scoreboard';
-import { CounterStatus } from '@/features/Counter/lib/enums';
 
 type Props = {
-    fieldValueValidator: FieldValueValidator;
+    fieldValuesValidator: FieldValuesValidator;
+    renderButtons: (props: RenderButtonsProps) => JSX.Element;
+    counterSpecificStyles?: { [key: string]: unknown };
 };
 
 export const DisplayCounterStand = (props: Props) => {
-    const { fieldValueValidator } = props;
-    const counterStatus = useAppSelector(selectCounterStatus);
+    const { fieldValuesValidator, renderButtons, counterSpecificStyles } =
+        props;
 
-    const dispatch = useAppDispatch();
+    const { values, handleIncrementClick, handleResetClick } =
+        useMinMaxValues();
 
-    const { minValue, maxValue, initialMinValue } =
-        useAppSelector(selectMinMaxValues);
+    const {
+        counterStatus,
+        minValue_eq_maxValue,
+        incButtonDisabled,
+        resetButtonDisabled,
+        errorText,
+    } = useDisplayStatus({ values, fieldValuesValidator });
 
-    const errorData = fieldValueValidator.validateFieldValues(
-        minValue,
-        maxValue,
-    );
-
-    const minValue_eq_maxValue = minValue === maxValue;
-    const counterStatusIsNotIdle = counterStatus !== CounterStatus.IDLE;
-
-    const incButtonDisabled = minValue >= maxValue || counterStatusIsNotIdle;
-    const resetButtonDisabled =
-        minValue === initialMinValue || counterStatusIsNotIdle;
-
-    const handleIncrementClick = () => {
-        dispatch(incrementMinValueAC());
-    };
-
-    const handleResetClick = () => {
-        dispatch(resetMinMaxValuesAC());
-    };
+    const { minValue } = values;
 
     return (
         <Grid size={4}>
@@ -55,6 +38,7 @@ export const DisplayCounterStand = (props: Props) => {
                     display: 'flex',
                     flexDirection: 'column',
                     padding: 2,
+                    ...counterSpecificStyles,
                 }}
             >
                 <Paper variant="outlined" sx={{ flexGrow: 1, marginBottom: 2 }}>
@@ -62,32 +46,16 @@ export const DisplayCounterStand = (props: Props) => {
                         minValue_eq_maxValue={minValue_eq_maxValue}
                         counterValue={minValue}
                         counterStatus={counterStatus}
-                        errorText={errorData?.errorText}
+                        errorText={errorText}
                     />
                 </Paper>
                 <Paper variant="outlined" sx={{ paddingX: 3, paddingY: 2 }}>
-                    <Grid container spacing={6}>
-                        <Grid size="grow">
-                            <Button
-                                onClick={handleIncrementClick}
-                                disabled={incButtonDisabled}
-                                variant="contained"
-                                sx={{ width: '100%' }}
-                            >
-                                inc
-                            </Button>
-                        </Grid>
-                        <Grid size="grow">
-                            <Button
-                                onClick={handleResetClick}
-                                disabled={resetButtonDisabled}
-                                variant="contained"
-                                sx={{ width: '100%' }}
-                            >
-                                reset
-                            </Button>
-                        </Grid>
-                    </Grid>
+                    {renderButtons({
+                        handleIncrementClick,
+                        handleResetClick,
+                        incButtonDisabled,
+                        resetButtonDisabled,
+                    })}
                 </Paper>
             </Paper>
         </Grid>

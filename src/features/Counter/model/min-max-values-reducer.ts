@@ -1,6 +1,6 @@
 import { AppDispatch } from '@/app/store';
-import { getDefaultValues } from '../lib/getDefaultValues';
 import { getLocalStorageRepo } from '@/common/repo/localstorage/localstorage';
+import { getDefaultValues } from '../lib/getDefaultValues';
 
 const defaultValues = getDefaultValues();
 const initialState = {

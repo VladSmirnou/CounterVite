@@ -1,4 +1,4 @@
-import { CounterStatus } from '../lib/enums';
+import { CounterStatus } from '../lib/enums/enums';
 
 const initialState = 'idle' as CounterStatus;
 

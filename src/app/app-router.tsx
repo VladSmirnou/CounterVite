@@ -1,5 +1,5 @@
-import { fieldValueValidator } from '@/features/Counter/lib/fieldValueValidator.ts';
-import { Counter } from '@/features/Counter/ui/Counter/Counter.tsx';
+import { fieldValuesValidator } from '@/features/Counter/lib/fieldValueValidator.ts';
+import { validateFieldValue } from '@/features/Counter/lib/validators/fieldValueValidator/fieldValueValidator.ts';
 import { createBrowserRouter } from 'react-router-dom';
 import { ErrorPage } from '../common/components/ErrorPage/ErrorPage.tsx';
 import { AltCounter } from '../features/Counter/ui/Counter/CounterSpecies/AltCounter/AltCounter.tsx';
@@ -8,10 +8,18 @@ import { CounterPage } from '../features/Counter/ui/IntroPage/CounterPage.tsx';
 import App from './App.tsx';
 import { IntroPage } from './IntroPage.tsx';
 import { Main } from './Main.tsx';
+import { Counter } from '@/features/Counter/ui/Counter/Counter.tsx';
+
+const appPath = {
+    root: '/',
+    counter: 'counter',
+    basicCounter: 'counter/basic',
+    altCounter: 'counter/alt',
+};
 
 export const router = createBrowserRouter([
     {
-        path: '/',
+        path: appPath.root,
         element: <App />,
         errorElement: <ErrorPage />,
         children: [
@@ -23,23 +31,25 @@ export const router = createBrowserRouter([
                         element: <IntroPage />,
                     },
                     {
-                        path: 'counter',
+                        path: appPath.counter,
                         element: <CounterPage />,
                     },
                     {
-                        path: 'counter/basic',
+                        path: appPath.basicCounter,
                         element: (
                             <Counter
-                                fieldValueValidator={fieldValueValidator}
+                                fieldValuesValidator={fieldValuesValidator}
+                                validateFieldValue={validateFieldValue}
                                 CounterType={BasicCounter}
                             />
                         ),
                     },
                     {
-                        path: 'counter/alt',
+                        path: appPath.altCounter,
                         element: (
                             <Counter
-                                fieldValueValidator={fieldValueValidator}
+                                fieldValuesValidator={fieldValuesValidator}
+                                validateFieldValue={validateFieldValue}
                                 CounterType={AltCounter}
                             />
                         ),
