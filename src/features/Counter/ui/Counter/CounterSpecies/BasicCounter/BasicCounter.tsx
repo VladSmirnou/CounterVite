@@ -4,7 +4,6 @@ import Grid from '@mui/material/Grid2';
 import { CounterSettingsStand } from '../../CounterSettingsStand/CounterSettingsStand';
 import { DisplayCounterStand } from '../../DisplayCounterStand/DisplayCounterStand';
 import { BasicCounterButtons } from './BasicCounterButtons/BasicCounterButtons';
-import { useEffect } from 'react';
 
 type Props = {
     fieldValuesValidator: FieldValuesValidator;
@@ -12,9 +11,6 @@ type Props = {
 };
 
 export const BasicCounter = (props: Props) => {
-    useEffect(() => {
-        return () => console.log('removing basic counter');
-    }, []);
     const { fieldValuesValidator, validateFieldValue } = props;
 
     return (

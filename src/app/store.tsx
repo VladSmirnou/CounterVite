@@ -48,8 +48,11 @@ export const store = createStore(
 // it is considered as an initial load (the whole app is destroyed)
 // (even when pressing browser history arrows)
 
-// when I to the 'home' page, then my components are unmounting,
+// when initial load -> load data from the localstorage for both counters
+
+// when I go to the 'home' page, then my components are unmounting,
 // but the store is not deleted.
+// when going through the app, use the store data, but reset the min value
 
 export const getMinMaxValues = () => {
     const minMaxValues = store.getState().minMaxValues;

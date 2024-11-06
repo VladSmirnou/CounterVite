@@ -1,6 +1,7 @@
 import { AppDispatch } from '@/app/store';
 import { getLocalStorageRepo } from '@/common/repo/localstorage/localstorage';
 import { getDefaultValues } from '../lib/getDefaultValues';
+import { ResetStoreActionType } from './common-actions';
 
 const defaultValues = getDefaultValues();
 const initialState = {
@@ -29,6 +30,9 @@ export const minMaxValuesReducer = (
         }
         case 'COUNTER_VALUES/RESET_MIN_MAX_VALUES': {
             return { ...state, minValue: state.initialMinValue };
+        }
+        case 'RESET_STORE': {
+            return initialState;
         }
         default:
             return state;
@@ -71,8 +75,8 @@ export type IncrementMinValueActionType = ReturnType<
 export type ResetMinMaxValuesActionType = ReturnType<
     typeof resetMinMaxValuesAC
 >;
-
 export type MinMaxValuesActions =
     | SetMinMaxValuesActionType
     | IncrementMinValueActionType
-    | ResetMinMaxValuesActionType;
+    | ResetMinMaxValuesActionType
+    | ResetStoreActionType;
