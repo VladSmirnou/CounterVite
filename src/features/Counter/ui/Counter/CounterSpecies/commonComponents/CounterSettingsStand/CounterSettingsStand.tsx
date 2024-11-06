@@ -7,20 +7,26 @@ import Grid from '@mui/material/Grid2';
 import Paper from '@mui/material/Paper';
 import { useMinMaxValues } from './ValuePanel/hooks/useMinMaxValues';
 import { ValuePanel } from './ValuePanel/ValuePannel';
+import { MinMaxValues } from '@/features/Counter/lib/types/counter.types';
 
 type Props = {
     fieldValuesValidator: FieldValuesValidator;
-    counterSpecificStyles?: { [key: string]: unknown };
     validateFieldValue: (value: string) => boolean;
+    getMinMaxValues: () => MinMaxValues;
+    counterSpecificStyles?: { [key: string]: unknown };
 };
 
 export const CounterSettingsStand = (props: Props) => {
-    const { fieldValuesValidator, counterSpecificStyles, validateFieldValue } =
-        props;
+    const {
+        fieldValuesValidator,
+        counterSpecificStyles,
+        validateFieldValue,
+        getMinMaxValues,
+    } = props;
     const counterStatus = useAppSelector(selectCounterStatus);
 
     const { localMinMaxValues, setValues, setMinMaxValuesHandler } =
-        useMinMaxValues(counterStatus);
+        useMinMaxValues({ counterStatus, getMinMaxValues });
     const { minValue, maxValue } = localMinMaxValues;
 
     const incorrectFieldData = fieldValuesValidator.validateFieldValues(

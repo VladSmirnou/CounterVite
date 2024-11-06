@@ -1,5 +1,5 @@
 import { FieldNames } from '@/features/Counter/lib/enums/enums';
-import { getDefaultValues } from '../getDefaultValues';
+import { getDefaultValues } from '../utils/getDefaultValues';
 
 export type IncorrectFieldName = FieldNames;
 export type MinMaxValues = ReturnType<typeof getDefaultValues>;

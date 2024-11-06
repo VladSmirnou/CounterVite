@@ -3,7 +3,7 @@ import { CounterStatus } from '@/features/Counter/lib/enums/enums';
 import { FieldValuesValidator } from '@/features/Counter/lib/interfaces/fieldValueValidator';
 import { selectCounterStatus } from '@/features/Counter/model/select-counter-status';
 
-type Args = {
+type Kwargs = {
     values: {
         minValue: number;
         maxValue: number;
@@ -12,7 +12,7 @@ type Args = {
     fieldValuesValidator: FieldValuesValidator;
 };
 
-export const useDisplayStatus = (args: Args) => {
+export const useDisplayStatus = (args: Kwargs) => {
     const { values, fieldValuesValidator } = args;
     const { minValue, maxValue, initialMinValue } = values;
 

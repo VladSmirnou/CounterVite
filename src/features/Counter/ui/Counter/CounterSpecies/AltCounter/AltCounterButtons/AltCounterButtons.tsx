@@ -1,6 +1,7 @@
 import { RenderButtonsProps } from '@/features/Counter/lib/types/counter.types';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid2';
+import { DefaultCounterButtons } from '../../commonComponents/DefaultCounterButtons/DefaultCounterButtons';
 
 type Props = RenderButtonsProps & {
     setSettingsMode: () => void;
@@ -15,27 +16,13 @@ export const AltCounterButtons = (props: Props) => {
         setSettingsMode,
     } = props;
     return (
-        <Grid container spacing={6}>
-            <Grid size="grow">
-                <Button
-                    onClick={handleIncrementClick}
-                    disabled={incButtonDisabled}
-                    variant="contained"
-                    sx={{ width: '100%' }}
-                >
-                    inc
-                </Button>
-            </Grid>
-            <Grid size="grow">
-                <Button
-                    onClick={handleResetClick}
-                    disabled={resetButtonDisabled}
-                    variant="contained"
-                    sx={{ width: '100%' }}
-                >
-                    reset
-                </Button>
-            </Grid>
+        <>
+            <DefaultCounterButtons
+                incButtonDisabled={incButtonDisabled}
+                resetButtonDisabled={resetButtonDisabled}
+                handleIncrementClick={handleIncrementClick}
+                handleResetClick={handleResetClick}
+            />
             <Grid size="grow">
                 <Button
                     onClick={setSettingsMode}
@@ -45,6 +32,6 @@ export const AltCounterButtons = (props: Props) => {
                     set
                 </Button>
             </Grid>
-        </Grid>
+        </>
     );
 };

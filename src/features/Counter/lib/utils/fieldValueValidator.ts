@@ -1,8 +1,8 @@
 import { ValueValidator } from '@/features/Counter/lib/validators/fieldValuesValidator/fieldValuesValidator';
-import { FieldNames } from './enums/enums';
-import { ValidateBoth } from './validators/fieldValuesValidator/validator/validators/validateBoth';
-import { ValidateMax } from './validators/fieldValuesValidator/validator/validators/validateMax';
-import { ValidateMin } from './validators/fieldValuesValidator/validator/validators/validateMin';
+import { FieldNames } from '../enums/enums';
+import { ValidateBoth } from '../validators/fieldValuesValidator/validator/validators/validateBoth';
+import { ValidateMax } from '../validators/fieldValuesValidator/validator/validators/validateMax';
+import { ValidateMin } from '../validators/fieldValuesValidator/validator/validators/validateMin';
 
 const MIN_ALLOWED_VALUE = 0;
 

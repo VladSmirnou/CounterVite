@@ -1,7 +1,7 @@
-import { getMinMaxValues } from '@/app/store';
 import { useAppDispatch } from '@/common/hooks/useAppDispatch';
-import { FieldNames, CounterStatus } from '@/features/Counter/lib/enums/enums';
-import { fieldValuesValidator } from '@/features/Counter/lib/fieldValueValidator';
+import { CounterStatus, FieldNames } from '@/features/Counter/lib/enums/enums';
+import { fieldValuesValidator } from '@/features/Counter/lib/utils/fieldValueValidator';
+import { MinMaxValues } from '@/features/Counter/lib/types/counter.types';
 import { setCounterStatusAC } from '@/features/Counter/model/counter-status-reducer';
 import {
     setMinMaxValuesAC,
@@ -9,8 +9,16 @@ import {
 } from '@/features/Counter/model/min-max-values-reducer';
 import { useState } from 'react';
 
-export const useMinMaxValues = (counterStatus: CounterStatus) => {
+type Kwargs = {
+    counterStatus: CounterStatus;
+    getMinMaxValues: () => MinMaxValues;
+};
+
+export const useMinMaxValues = (args: Kwargs) => {
+    const { counterStatus, getMinMaxValues } = args;
+
     const dispatch = useAppDispatch();
+
     const [localMinMaxValues, setLocalMinMaxValues] = useState(getMinMaxValues);
 
     const setValues = (fieldName: FieldNames, value: number) => {

@@ -1,7 +1,8 @@
 import { AppDispatch } from '@/app/store';
 import { getLocalStorageRepo } from '@/common/repo/localstorage/localstorage';
-import { getDefaultValues } from '../lib/getDefaultValues';
+import { getDefaultValues } from '../lib/utils/getDefaultValues';
 import { ResetStoreActionType } from './common-actions';
+import { STORED_VALUES } from '../lib/constants/constants';
 
 const defaultValues = getDefaultValues();
 const initialState = {
@@ -12,7 +13,6 @@ const initialState = {
 type State = typeof initialState;
 
 const repo = getLocalStorageRepo();
-const STORED_VALUES = 'storedValues';
 
 export const minMaxValuesReducer = (
     state: State = initialState,

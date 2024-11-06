@@ -1,6 +1,6 @@
 import { MinMaxValues } from '../types/counter.types';
 import { not } from '@/common/utils/not';
-import { fieldValuesValidator } from '../fieldValueValidator';
+import { fieldValuesValidator } from './fieldValueValidator';
 
 export const demarshallMinMaxValues = (
     storedValues: string | null,

@@ -2,17 +2,20 @@ import { useAppDispatch } from '@/common/hooks/useAppDispatch';
 import { useAppSelector } from '@/common/hooks/useAppSelector';
 import { CounterStatus } from '@/features/Counter/lib/enums/enums';
 import { FieldValuesValidator } from '@/features/Counter/lib/interfaces/fieldValueValidator';
-import { RenderButtonsProps } from '@/features/Counter/lib/types/counter.types';
+import {
+    MinMaxValues,
+    RenderButtonsProps,
+} from '@/features/Counter/lib/types/counter.types';
 import { setCounterStatusAC } from '@/features/Counter/model/counter-status-reducer';
 import { selectCounterStatus } from '@/features/Counter/model/select-counter-status';
-import { CounterSettingsStand } from '../../CounterSettingsStand/CounterSettingsStand';
-import { DisplayCounterStand } from '../../DisplayCounterStand/DisplayCounterStand';
 import { AltCounterButtons } from './AltCounterButtons/AltCounterButtons';
-import { useEffect } from 'react';
+import { CounterSettingsStand } from '../commonComponents/CounterSettingsStand/CounterSettingsStand';
+import { DisplayCounterStand } from '../commonComponents/DisplayCounterStand/DisplayCounterStand';
 
 type Props = {
     fieldValuesValidator: FieldValuesValidator;
     validateFieldValue: (value: string) => boolean;
+    getMinMaxValues: () => MinMaxValues;
 };
 
 const altCounterStyles = {
@@ -22,13 +25,10 @@ const altCounterStyles = {
 };
 
 export const AltCounter = (props: Props) => {
-    useEffect(() => {
-        return () => console.log('removing alt counter');
-    }, []);
     const dispatch = useAppDispatch();
 
     const counterStatus = useAppSelector(selectCounterStatus);
-    const { fieldValuesValidator, validateFieldValue } = props;
+    const { fieldValuesValidator, validateFieldValue, getMinMaxValues } = props;
 
     const setSettingsMode = () => {
         dispatch(setCounterStatusAC(CounterStatus.TYPING));
@@ -39,6 +39,7 @@ export const AltCounter = (props: Props) => {
                 fieldValuesValidator={fieldValuesValidator}
                 counterSpecificStyles={altCounterStyles}
                 validateFieldValue={validateFieldValue}
+                getMinMaxValues={getMinMaxValues}
             />
         :   <DisplayCounterStand
                 fieldValuesValidator={fieldValuesValidator}

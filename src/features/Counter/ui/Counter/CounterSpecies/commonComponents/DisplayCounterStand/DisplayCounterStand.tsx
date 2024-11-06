@@ -50,12 +50,14 @@ export const DisplayCounterStand = (props: Props) => {
                     />
                 </Paper>
                 <Paper variant="outlined" sx={{ paddingX: 3, paddingY: 2 }}>
-                    {renderButtons({
-                        handleIncrementClick,
-                        handleResetClick,
-                        incButtonDisabled,
-                        resetButtonDisabled,
-                    })}
+                    <Grid container spacing={6}>
+                        {renderButtons({
+                            handleIncrementClick,
+                            handleResetClick,
+                            incButtonDisabled,
+                            resetButtonDisabled,
+                        })}
+                    </Grid>
                 </Paper>
             </Paper>
         </Grid>

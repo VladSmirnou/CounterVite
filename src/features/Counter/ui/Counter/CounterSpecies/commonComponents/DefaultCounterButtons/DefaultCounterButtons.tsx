@@ -2,7 +2,7 @@ import { RenderButtonsProps } from '@/features/Counter/lib/types/counter.types';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid2';
 
-export const BasicCounterButtons = (props: RenderButtonsProps) => {
+export const DefaultCounterButtons = (props: RenderButtonsProps) => {
     const {
         incButtonDisabled,
         resetButtonDisabled,
@@ -10,7 +10,7 @@ export const BasicCounterButtons = (props: RenderButtonsProps) => {
         handleResetClick,
     } = props;
     return (
-        <Grid container spacing={6}>
+        <>
             <Grid size="grow">
                 <Button
                     onClick={handleIncrementClick}
@@ -31,6 +31,6 @@ export const BasicCounterButtons = (props: RenderButtonsProps) => {
                     reset
                 </Button>
             </Grid>
-        </Grid>
+        </>
     );
 };

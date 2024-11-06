@@ -1,4 +1,4 @@
-import { fieldValuesValidator } from '@/features/Counter/lib/fieldValueValidator.ts';
+import { fieldValuesValidator } from '@/features/Counter/lib/utils/fieldValueValidator.ts';
 import { validateFieldValue } from '@/features/Counter/lib/validators/fieldValueValidator/fieldValueValidator.ts';
 import { Counter } from '@/features/Counter/ui/Counter/Counter.tsx';
 import { createBrowserRouter } from 'react-router-dom';
@@ -9,6 +9,7 @@ import { CounterPage } from '../features/Counter/ui/IntroPage/CounterPage.tsx';
 import App from './App.tsx';
 import { IntroPage } from './IntroPage.tsx';
 import { Main } from './Main.tsx';
+import { getMinMaxValues } from './store.tsx';
 
 const appPath = {
     root: '/',
@@ -38,9 +39,19 @@ export const router = createBrowserRouter([
                         path: appPath.basicCounter,
                         element: (
                             <Counter
-                                fieldValuesValidator={fieldValuesValidator}
-                                validateFieldValue={validateFieldValue}
-                                CounterType={BasicCounter}
+                                render={() => {
+                                    return (
+                                        <BasicCounter
+                                            fieldValuesValidator={
+                                                fieldValuesValidator
+                                            }
+                                            validateFieldValue={
+                                                validateFieldValue
+                                            }
+                                            getMinMaxValues={getMinMaxValues}
+                                        />
+                                    );
+                                }}
                             />
                         ),
                     },
@@ -48,9 +59,19 @@ export const router = createBrowserRouter([
                         path: appPath.altCounter,
                         element: (
                             <Counter
-                                fieldValuesValidator={fieldValuesValidator}
-                                validateFieldValue={validateFieldValue}
-                                CounterType={AltCounter}
+                                render={() => {
+                                    return (
+                                        <AltCounter
+                                            fieldValuesValidator={
+                                                fieldValuesValidator
+                                            }
+                                            validateFieldValue={
+                                                validateFieldValue
+                                            }
+                                            getMinMaxValues={getMinMaxValues}
+                                        />
+                                    );
+                                }}
                             />
                         ),
                     },
