@@ -1,7 +1,7 @@
 import { IncorrectFieldName } from '@/features/Counter/lib/types/counter.types';
 import { Validator } from '../validator';
 
-export class ValidateMin extends Validator {
+export class Min_ge_MinAllowedValue extends Validator {
     #lowestAllowedValue: number;
 
     constructor(

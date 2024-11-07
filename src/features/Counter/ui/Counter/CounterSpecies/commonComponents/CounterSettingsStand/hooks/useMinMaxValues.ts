@@ -1,6 +1,6 @@
 import { useAppDispatch } from '@/common/hooks/useAppDispatch';
 import { CounterStatus, FieldNames } from '@/features/Counter/lib/enums/enums';
-import { fieldValuesValidator } from '@/features/Counter/lib/utils/fieldValueValidator';
+import { fieldValuesValidator } from '@/features/Counter/lib/utils/fieldValuesValidator';
 import { MinMaxValues } from '@/features/Counter/lib/types/counter.types';
 import { setCounterStatusAC } from '@/features/Counter/model/counter-status-reducer';
 import {

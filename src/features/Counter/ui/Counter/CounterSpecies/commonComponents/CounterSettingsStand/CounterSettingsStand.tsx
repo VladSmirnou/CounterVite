@@ -5,7 +5,7 @@ import { selectCounterStatus } from '@/features/Counter/model/select-counter-sta
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid2';
 import Paper from '@mui/material/Paper';
-import { useMinMaxValues } from './ValuePanel/hooks/useMinMaxValues';
+import { useMinMaxValues } from './hooks/useMinMaxValues';
 import { ValuePanel } from './ValuePanel/ValuePannel';
 import { MinMaxValues } from '@/features/Counter/lib/types/counter.types';
 

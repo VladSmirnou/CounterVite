@@ -1,4 +1,4 @@
-import { fieldValuesValidator } from '@/features/Counter/lib/utils/fieldValueValidator.ts';
+import { fieldValuesValidator } from '@/features/Counter/lib/utils/fieldValuesValidator.ts';
 import { validateFieldValue } from '@/features/Counter/lib/validators/fieldValueValidator/fieldValueValidator.ts';
 import { Counter } from '@/features/Counter/ui/Counter/Counter.tsx';
 import { createBrowserRouter } from 'react-router-dom';

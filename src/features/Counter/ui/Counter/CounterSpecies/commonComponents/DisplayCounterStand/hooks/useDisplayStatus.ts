@@ -18,10 +18,13 @@ export const useDisplayStatus = (args: Kwargs) => {
 
     const counterStatus = useAppSelector(selectCounterStatus);
 
-    const errorData = fieldValuesValidator.validateFieldValues(
-        minValue,
-        maxValue,
-    );
+    let errorData;
+    if (counterStatus === CounterStatus.ERROR) {
+        errorData = fieldValuesValidator.validateFieldValues(
+            minValue,
+            maxValue,
+        );
+    }
 
     const minValue_eq_maxValue = minValue === maxValue;
     const counterStatusIsNotIdle = counterStatus !== CounterStatus.IDLE;
