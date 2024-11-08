@@ -9,6 +9,7 @@
         "lint": "eslint .",
         "preview": "vite preview",
         "test": "jest --runInBand --watchAll",
+        "testHusky": "jest --runInBand",
         "coverage": "yarn test --coverage --collectCoverageFrom='src/components/**/*.{ts,tsx}'",
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build",

@@ -2,7 +2,7 @@ import { useAppDispatch } from '@/common/hooks/useAppDispatch';
 import { useAppSelector } from '@/common/hooks/useAppSelector';
 import {
     incrementMinValueAC,
-    resetMinMaxValuesAC,
+    resetMinValueAC,
 } from '@/features/Counter/model/min-max-values-reducer';
 import { selectMinMaxValues } from '@/features/Counter/model/min-max-values-selector';
 
@@ -16,7 +16,7 @@ export const useMinMaxValues = () => {
     };
 
     const handleResetClick = () => {
-        dispatch(resetMinMaxValuesAC());
+        dispatch(resetMinValueAC());
     };
 
     return {

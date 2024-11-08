@@ -28,7 +28,7 @@ export const minMaxValuesReducer = (
         case 'COUNTER_VALUES/INCREMENT_MIN_VALUE': {
             return { ...state, minValue: state.minValue + 1 };
         }
-        case 'COUNTER_VALUES/RESET_MIN_MAX_VALUES': {
+        case 'COUNTER_VALUES/RESET_MIN_VALUE': {
             return { ...state, minValue: state.initialMinValue };
         }
         case 'RESET_STORE': {
@@ -62,9 +62,9 @@ export const incrementMinValueAC = () => {
     };
 };
 
-export const resetMinMaxValuesAC = () => {
+export const resetMinValueAC = () => {
     return {
-        type: 'COUNTER_VALUES/RESET_MIN_MAX_VALUES' as const,
+        type: 'COUNTER_VALUES/RESET_MIN_VALUE' as const,
     };
 };
 
@@ -72,9 +72,7 @@ export type SetMinMaxValuesActionType = ReturnType<typeof setMinMaxValuesAC>;
 export type IncrementMinValueActionType = ReturnType<
     typeof incrementMinValueAC
 >;
-export type ResetMinMaxValuesActionType = ReturnType<
-    typeof resetMinMaxValuesAC
->;
+export type ResetMinMaxValuesActionType = ReturnType<typeof resetMinValueAC>;
 export type MinMaxValuesActions =
     | SetMinMaxValuesActionType
     | IncrementMinValueActionType
