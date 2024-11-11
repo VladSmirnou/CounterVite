@@ -46,8 +46,8 @@ export const store = createStore(
 
 export const getMinMaxValues = () => {
     const minMaxValues = store.getState().minMaxValues;
-    const { minValue, maxValue } = minMaxValues;
-    return { minValue, maxValue };
+    const { initialMinValue, maxValue } = minMaxValues;
+    return { minValue: initialMinValue, maxValue };
 };
 
 type AppActions = MinMaxValuesActions | CounterStatusActions;
