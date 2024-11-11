@@ -6,11 +6,17 @@ type Props = {
     counterValue: number;
     counterStatus: CounterStatus;
     errorText: string | undefined;
+    counterSpecificStyles?: { [key: string]: unknown };
 };
 
 export const Scoreboard = (props: Props) => {
-    const { counterValue, errorText, counterStatus, minValue_eq_maxValue } =
-        props;
+    const {
+        counterValue,
+        errorText,
+        counterStatus,
+        minValue_eq_maxValue,
+        counterSpecificStyles,
+    } = props;
     let scoreboardTextColor = '#5ed1f5';
 
     if (counterStatus === CounterStatus.ERROR || minValue_eq_maxValue)
@@ -29,9 +35,10 @@ export const Scoreboard = (props: Props) => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                height: counterStatus === CounterStatus.IDLE ? 148 : '100%',
+                height: '100%',
                 fontWeight: 900,
                 color: scoreboardTextColor,
+                ...counterSpecificStyles,
             }}
         >
             {scoreboardText}

@@ -13,7 +13,9 @@ type Props = {
     fieldValuesValidator: FieldValuesValidator;
     validateFieldValue: (value: string) => boolean;
     getMinMaxValues: () => MinMaxValues;
-    counterSpecificStyles?: { [key: string]: unknown };
+    counterSpecificStyles?: (
+        element: string,
+    ) => { [key: string]: unknown } | undefined;
 };
 
 export const CounterSettingsStand = (props: Props) => {
@@ -36,12 +38,14 @@ export const CounterSettingsStand = (props: Props) => {
     const incorrectFieldName = incorrectFieldData?.fieldName;
 
     return (
-        <Grid size={4}>
+        <Grid size={{ xs: 2, sm: 4, md: 5, lg: 4 }}>
             <Paper
                 variant="outlined"
                 sx={{
                     padding: 2,
-                    ...counterSpecificStyles,
+                    ...(counterSpecificStyles ?
+                        counterSpecificStyles('paper')
+                    :   {}),
                 }}
             >
                 <Paper

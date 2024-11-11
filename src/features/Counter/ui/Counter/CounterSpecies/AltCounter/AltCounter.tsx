@@ -18,10 +18,21 @@ type Props = {
     getMinMaxValues: () => MinMaxValues;
 };
 
-const altCounterStyles = {
-    width: '100%',
-    maxWidth: 430,
-    margin: '0 auto',
+const getStyles = (element: string) => {
+    switch (element) {
+        case 'paper': {
+            return {
+                width: '100%',
+                maxWidth: 430,
+                margin: '0 auto',
+            };
+        }
+        case 'scoreboard': {
+            return {
+                height: 148,
+            };
+        }
+    }
 };
 
 export const AltCounter = (props: Props) => {
@@ -37,7 +48,7 @@ export const AltCounter = (props: Props) => {
     return counterStatus !== CounterStatus.IDLE ?
             <CounterSettingsStand
                 fieldValuesValidator={fieldValuesValidator}
-                counterSpecificStyles={altCounterStyles}
+                counterSpecificStyles={getStyles}
                 validateFieldValue={validateFieldValue}
                 getMinMaxValues={getMinMaxValues}
             />
@@ -49,6 +60,6 @@ export const AltCounter = (props: Props) => {
                         setSettingsMode={setSettingsMode}
                     />
                 )}
-                counterSpecificStyles={altCounterStyles}
+                counterSpecificStyles={getStyles}
             />;
 };

@@ -9,7 +9,9 @@ import { Scoreboard } from './Scoreboard/Scoreboard';
 type Props = {
     fieldValuesValidator: FieldValuesValidator;
     renderButtons: (props: RenderButtonsProps) => JSX.Element;
-    counterSpecificStyles?: { [key: string]: unknown };
+    counterSpecificStyles?: (
+        element: string,
+    ) => { [key: string]: unknown } | undefined;
 };
 
 export const DisplayCounterStand = (props: Props) => {
@@ -30,7 +32,7 @@ export const DisplayCounterStand = (props: Props) => {
     const { minValue } = values;
 
     return (
-        <Grid size={4}>
+        <Grid size={{ xs: 2, sm: 4, md: 5, lg: 4 }}>
             <Paper
                 variant="outlined"
                 sx={{
@@ -38,7 +40,9 @@ export const DisplayCounterStand = (props: Props) => {
                     display: 'flex',
                     flexDirection: 'column',
                     padding: 2,
-                    ...counterSpecificStyles,
+                    ...(counterSpecificStyles ?
+                        counterSpecificStyles('paper')
+                    :   undefined),
                 }}
             >
                 <Paper variant="outlined" sx={{ flexGrow: 1, marginBottom: 2 }}>
@@ -47,10 +51,15 @@ export const DisplayCounterStand = (props: Props) => {
                         counterValue={minValue}
                         counterStatus={counterStatus}
                         errorText={errorText}
+                        counterSpecificStyles={
+                            counterSpecificStyles ?
+                                counterSpecificStyles('scoreboard')
+                            :   undefined
+                        }
                     />
                 </Paper>
                 <Paper variant="outlined" sx={{ paddingX: 3, paddingY: 2 }}>
-                    <Grid container spacing={6}>
+                    <Grid container spacing={{ xs: 2, lg: 6 }}>
                         {renderButtons({
                             handleIncrementClick,
                             handleResetClick,

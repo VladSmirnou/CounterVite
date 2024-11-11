@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import Typography from '@mui/material/Typography';
 import { ChangeEvent } from 'react';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 type Props = {
     value: number;
@@ -23,6 +24,8 @@ export const ValuePanel = (props: Props) => {
         setValues,
         validateFieldValue,
     } = props;
+
+    const isLargeDevice = useMediaQuery('(min-width:1300px)');
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.currentTarget.value;
@@ -45,7 +48,9 @@ export const ValuePanel = (props: Props) => {
         <Box
             sx={{
                 display: 'flex',
+                flexWrap: 'wrap',
                 alignItems: 'center',
+                rowGap: 1,
                 columnGap: 3,
             }}
         >
@@ -65,6 +70,9 @@ export const ValuePanel = (props: Props) => {
                 onChange={handleChange}
                 sx={{
                     all: 'revert',
+                    flex: isLargeDevice ? 1 : 'initial',
+                    width: isLargeDevice ? 'auto' : '100%',
+                    marginLeft: 'auto',
                     '& > input': {
                         backgroundColor: finalBackgroundColor,
                         fontWeight: 900,
