@@ -1,7 +1,7 @@
 import {
     counterStatusReducer,
-    setCounterStatusAC,
-} from '../counter-status-reducer';
+    counterStatusChanged,
+} from '../counter-status-slice';
 
 export enum CounterStatus {
     ERROR = 'error',
@@ -18,7 +18,7 @@ test('correct counter status is set', () => {
     // action
     const res = counterStatusReducer(
         initialState,
-        setCounterStatusAC(nextStatus),
+        counterStatusChanged(nextStatus),
     );
 
     expect(res).toBe(CounterStatus.ERROR);

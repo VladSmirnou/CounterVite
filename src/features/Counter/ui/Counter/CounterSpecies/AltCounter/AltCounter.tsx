@@ -6,33 +6,17 @@ import {
     MinMaxValues,
     RenderButtonsProps,
 } from '@/features/Counter/lib/types/counter.types';
-import { setCounterStatusAC } from '@/features/Counter/model/counter-status-reducer';
+import { counterStatusChanged } from '@/features/Counter/model/counter-status-slice';
 import { selectCounterStatus } from '@/features/Counter/model/select-counter-status';
 import { AltCounterButtons } from './AltCounterButtons/AltCounterButtons';
 import { CounterSettingsStand } from '../commonComponents/CounterSettingsStand/CounterSettingsStand';
 import { DisplayCounterStand } from '../commonComponents/DisplayCounterStand/DisplayCounterStand';
+import { getStyles } from './styles';
 
 type Props = {
     fieldValuesValidator: FieldValuesValidator;
     validateFieldValue: (value: string) => boolean;
     getMinMaxValues: () => MinMaxValues;
-};
-
-const getStyles = (element: string) => {
-    switch (element) {
-        case 'paper': {
-            return {
-                width: '100%',
-                maxWidth: 430,
-                margin: '0 auto',
-            };
-        }
-        case 'scoreboard': {
-            return {
-                height: 148,
-            };
-        }
-    }
 };
 
 export const AltCounter = (props: Props) => {
@@ -42,13 +26,13 @@ export const AltCounter = (props: Props) => {
     const { fieldValuesValidator, validateFieldValue, getMinMaxValues } = props;
 
     const setSettingsMode = () => {
-        dispatch(setCounterStatusAC(CounterStatus.TYPING));
+        dispatch(counterStatusChanged(CounterStatus.TYPING));
     };
 
     return counterStatus !== CounterStatus.IDLE ?
             <CounterSettingsStand
                 fieldValuesValidator={fieldValuesValidator}
-                counterSpecificStyles={getStyles}
+                getCounterSpecificStyles={getStyles}
                 validateFieldValue={validateFieldValue}
                 getMinMaxValues={getMinMaxValues}
             />
@@ -60,6 +44,6 @@ export const AltCounter = (props: Props) => {
                         setSettingsMode={setSettingsMode}
                     />
                 )}
-                counterSpecificStyles={getStyles}
+                getCounterSpecificStyles={getStyles}
             />;
 };

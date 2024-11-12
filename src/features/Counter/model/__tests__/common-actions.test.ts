@@ -1,6 +1,6 @@
-import { resetStoreAC } from '../common-actions';
-import { counterStatusReducer } from '../counter-status-reducer';
-import { minMaxValuesReducer } from '../min-max-values-reducer';
+import { counterTypeChanged } from '../common-actions';
+import { counterStatusReducer } from '../counter-status-slice';
+import { minMaxValuesReducer } from '../min-max-values-slice';
 
 export enum CounterStatus {
     ERROR = 'error',
@@ -31,11 +31,11 @@ test('store is correctly reset', () => {
     // action
     const finalStatus = counterStatusReducer(
         modifiedStoreData.status,
-        resetStoreAC(),
+        counterTypeChanged(),
     );
     const finalMinMaxValues = minMaxValuesReducer(
         modifiedStoreData.minMaxValues,
-        resetStoreAC(),
+        counterTypeChanged(),
     );
 
     // result

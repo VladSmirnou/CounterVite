@@ -1,5 +1,5 @@
-export const resetStoreAC = () => {
-    return { type: 'RESET_STORE' as const };
-};
+import { createAction } from '@reduxjs/toolkit';
 
-export type ResetStoreActionType = ReturnType<typeof resetStoreAC>;
+export const counterTypeChanged = createAction('reset-store');
+
+export type CommonActionTypes = ReturnType<typeof counterTypeChanged>;

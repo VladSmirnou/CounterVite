@@ -1,9 +1,9 @@
 import {
-    incrementMinValueAC,
+    minValueIncremented,
     minMaxValuesReducer,
-    resetMinValueAC,
-    setMinMaxValuesAC,
-} from '../min-max-values-reducer';
+    minValueReset,
+    minMaxValuesSet,
+} from '../min-max-values-slice';
 
 type State = {
     initialMinValue: number;
@@ -27,7 +27,7 @@ test('correct min, initialMin, and max values are set', () => {
     // action
     const res = minMaxValuesReducer(
         initialState,
-        setMinMaxValuesAC(nextMinMaxValues),
+        minMaxValuesSet(nextMinMaxValues),
     );
 
     // result
@@ -37,7 +37,7 @@ test('correct min, initialMin, and max values are set', () => {
 test('min value is correctly incremented', () => {
     // data
     // action
-    const res = minMaxValuesReducer(initialState, incrementMinValueAC());
+    const res = minMaxValuesReducer(initialState, minValueIncremented());
 
     // result
     expect(res).toEqual({ minValue: 1, maxValue: 5, initialMinValue: 0 });
@@ -48,7 +48,7 @@ test('min value is correctly reset', () => {
     const modifiedState = { initialMinValue: 2, minValue: 4, maxValue: 7 };
 
     // action
-    const res = minMaxValuesReducer(modifiedState, resetMinValueAC());
+    const res = minMaxValuesReducer(modifiedState, minValueReset());
 
     // result
     expect(res).toEqual({ minValue: 2, maxValue: 7, initialMinValue: 2 });

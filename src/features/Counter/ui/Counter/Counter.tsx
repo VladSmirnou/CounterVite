@@ -1,6 +1,6 @@
 import { useAppDispatch } from '@/common/hooks/useAppDispatch';
 import { useEffect } from 'react';
-import { resetStoreAC } from '../../model/common-actions';
+import { counterTypeChanged } from '../../model/common-actions';
 
 type Props = {
     render: () => JSX.Element;
@@ -16,7 +16,7 @@ export const Counter = (props: Props) => {
         root.style.backgroundColor = '#292c35';
         return () => {
             root.style.backgroundColor = 'white';
-            dispatch(resetStoreAC());
+            dispatch(counterTypeChanged());
         };
     }, [dispatch]);
 

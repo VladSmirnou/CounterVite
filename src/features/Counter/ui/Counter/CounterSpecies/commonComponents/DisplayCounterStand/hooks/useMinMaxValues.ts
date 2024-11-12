@@ -1,9 +1,9 @@
 import { useAppDispatch } from '@/common/hooks/useAppDispatch';
 import { useAppSelector } from '@/common/hooks/useAppSelector';
 import {
-    incrementMinValueAC,
-    resetMinValueAC,
-} from '@/features/Counter/model/min-max-values-reducer';
+    minValueIncremented,
+    minValueReset,
+} from '@/features/Counter/model/min-max-values-slice';
 import { selectMinMaxValues } from '@/features/Counter/model/min-max-values-selector';
 
 export const useMinMaxValues = () => {
@@ -12,11 +12,11 @@ export const useMinMaxValues = () => {
     const values = useAppSelector(selectMinMaxValues);
 
     const handleIncrementClick = () => {
-        dispatch(incrementMinValueAC());
+        dispatch(minValueIncremented());
     };
 
     const handleResetClick = () => {
-        dispatch(resetMinValueAC());
+        dispatch(minValueReset());
     };
 
     return {

@@ -2,11 +2,11 @@ import { useAppDispatch } from '@/common/hooks/useAppDispatch';
 import { CounterStatus, FieldNames } from '@/features/Counter/lib/enums/enums';
 import { fieldValuesValidator } from '@/features/Counter/lib/utils/fieldValuesValidator';
 import { MinMaxValues } from '@/features/Counter/lib/types/counter.types';
-import { setCounterStatusAC } from '@/features/Counter/model/counter-status-reducer';
+import { counterStatusChanged } from '@/features/Counter/model/counter-status-slice';
 import {
-    setMinMaxValuesAC,
+    minMaxValuesSet,
     setMinMaxValuesTC,
-} from '@/features/Counter/model/min-max-values-reducer';
+} from '@/features/Counter/model/min-max-values-slice';
 import { useState } from 'react';
 
 type Kwargs = {
@@ -43,21 +43,21 @@ export const useMinMaxValues = (args: Kwargs) => {
             // so that I don't have to store the error data, and can
             // calculate it in DisplayCounterStand
 
-            dispatch(setCounterStatusAC(CounterStatus.ERROR));
-            dispatch(setMinMaxValuesAC(nextMinMaxValues));
+            dispatch(counterStatusChanged(CounterStatus.ERROR));
+            dispatch(minMaxValuesSet(nextMinMaxValues));
             setLocalMinMaxValues(nextMinMaxValues);
         } else {
             if (counterStatus === CounterStatus.ERROR) {
-                dispatch(setMinMaxValuesAC(nextMinMaxValues));
+                dispatch(minMaxValuesSet(nextMinMaxValues));
             }
-            dispatch(setCounterStatusAC(CounterStatus.TYPING));
+            dispatch(counterStatusChanged(CounterStatus.TYPING));
             setLocalMinMaxValues(nextMinMaxValues);
         }
         return;
     };
 
     const setMinMaxValuesHandler = () => {
-        dispatch(setCounterStatusAC(CounterStatus.IDLE));
+        dispatch(counterStatusChanged(CounterStatus.IDLE));
         dispatch(setMinMaxValuesTC(localMinMaxValues));
     };
 

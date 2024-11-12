@@ -9,13 +9,13 @@ import { Scoreboard } from './Scoreboard/Scoreboard';
 type Props = {
     fieldValuesValidator: FieldValuesValidator;
     renderButtons: (props: RenderButtonsProps) => JSX.Element;
-    counterSpecificStyles?: (
+    getCounterSpecificStyles?: (
         element: string,
     ) => { [key: string]: unknown } | undefined;
 };
 
 export const DisplayCounterStand = (props: Props) => {
-    const { fieldValuesValidator, renderButtons, counterSpecificStyles } =
+    const { fieldValuesValidator, renderButtons, getCounterSpecificStyles } =
         props;
 
     const { values, handleIncrementClick, handleResetClick } =
@@ -40,8 +40,8 @@ export const DisplayCounterStand = (props: Props) => {
                     display: 'flex',
                     flexDirection: 'column',
                     padding: 2,
-                    ...(counterSpecificStyles ?
-                        counterSpecificStyles('paper')
+                    ...(getCounterSpecificStyles ?
+                        getCounterSpecificStyles('paper')
                     :   undefined),
                 }}
             >
@@ -52,8 +52,8 @@ export const DisplayCounterStand = (props: Props) => {
                         counterStatus={counterStatus}
                         errorText={errorText}
                         counterSpecificStyles={
-                            counterSpecificStyles ?
-                                counterSpecificStyles('scoreboard')
+                            getCounterSpecificStyles ?
+                                getCounterSpecificStyles('scoreboard')
                             :   undefined
                         }
                     />

@@ -13,7 +13,7 @@ type Props = {
     fieldValuesValidator: FieldValuesValidator;
     validateFieldValue: (value: string) => boolean;
     getMinMaxValues: () => MinMaxValues;
-    counterSpecificStyles?: (
+    getCounterSpecificStyles?: (
         element: string,
     ) => { [key: string]: unknown } | undefined;
 };
@@ -21,7 +21,7 @@ type Props = {
 export const CounterSettingsStand = (props: Props) => {
     const {
         fieldValuesValidator,
-        counterSpecificStyles,
+        getCounterSpecificStyles,
         validateFieldValue,
         getMinMaxValues,
     } = props;
@@ -43,8 +43,8 @@ export const CounterSettingsStand = (props: Props) => {
                 variant="outlined"
                 sx={{
                     padding: 2,
-                    ...(counterSpecificStyles ?
-                        counterSpecificStyles('paper')
+                    ...(getCounterSpecificStyles ?
+                        getCounterSpecificStyles('paper')
                     :   {}),
                 }}
             >
