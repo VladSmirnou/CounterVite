@@ -3,8 +3,8 @@ import { useAppSelector } from '@/common/hooks/useAppSelector';
 import {
     minValueIncremented,
     minValueReset,
+    selectMinMaxValues,
 } from '@/features/Counter/model/min-max-values-slice';
-import { selectMinMaxValues } from '@/features/Counter/model/min-max-values-selector';
 
 export const useMinMaxValues = () => {
     const dispatch = useAppDispatch();

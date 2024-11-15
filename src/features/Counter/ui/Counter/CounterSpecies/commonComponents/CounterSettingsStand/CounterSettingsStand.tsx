@@ -1,13 +1,14 @@
 import { useAppSelector } from '@/common/hooks/useAppSelector';
 import { CounterStatus, FieldNames } from '@/features/Counter/lib/enums/enums';
 import { FieldValuesValidator } from '@/features/Counter/lib/interfaces/fieldValueValidator';
-import { selectCounterStatus } from '@/features/Counter/model/select-counter-status';
+
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid2';
 import Paper from '@mui/material/Paper';
 import { useMinMaxValues } from './hooks/useMinMaxValues';
 import { ValuePanel } from './ValuePanel/ValuePannel';
 import { MinMaxValues } from '@/features/Counter/lib/types/counter.types';
+import { selectCounterStatus } from '@/features/Counter/model/counter-status-slice';
 
 type Props = {
     fieldValuesValidator: FieldValuesValidator;

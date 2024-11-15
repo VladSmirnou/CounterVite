@@ -17,10 +17,14 @@ const counterStatusSlice = createSlice({
             return initialState;
         });
     },
+    selectors: {
+        selectCounterStatus: (state) => state,
+    },
 });
 
 export const counterStatusReducer = counterStatusSlice.reducer;
 export const { counterStatusChanged } = counterStatusSlice.actions;
 export const counterStatusSliceName = counterStatusSlice.name;
+export const { selectCounterStatus } = counterStatusSlice.selectors;
 
 export type CounterStatusSliceActions = ReturnType<typeof counterStatusChanged>;

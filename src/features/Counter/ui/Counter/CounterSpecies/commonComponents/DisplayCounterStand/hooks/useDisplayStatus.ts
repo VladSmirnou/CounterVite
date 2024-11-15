@@ -1,7 +1,7 @@
 import { useAppSelector } from '@/common/hooks/useAppSelector';
 import { CounterStatus } from '@/features/Counter/lib/enums/enums';
 import { FieldValuesValidator } from '@/features/Counter/lib/interfaces/fieldValueValidator';
-import { selectCounterStatus } from '@/features/Counter/model/select-counter-status';
+import { selectCounterStatus } from '@/features/Counter/model/counter-status-slice';
 
 type Kwargs = {
     values: {

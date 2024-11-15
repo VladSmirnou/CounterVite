@@ -36,12 +36,16 @@ const minMaxValuesSlice = createSlice({
             return initialState;
         });
     },
+    selectors: {
+        selectMinMaxValues: (state) => state,
+    },
 });
 
 export const minMaxValuesReducer = minMaxValuesSlice.reducer;
 export const { minMaxValuesSet, minValueIncremented, minValueReset } =
     minMaxValuesSlice.actions;
 export const minMaxValuesSliceName = minMaxValuesSlice.name;
+export const { selectMinMaxValues } = minMaxValuesSlice.selectors;
 
 export const setMinMaxValuesTC =
     (payload: { minValue: number; maxValue: number }) =>

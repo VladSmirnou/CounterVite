@@ -6,8 +6,11 @@ import {
     MinMaxValues,
     RenderButtonsProps,
 } from '@/features/Counter/lib/types/counter.types';
-import { counterStatusChanged } from '@/features/Counter/model/counter-status-slice';
-import { selectCounterStatus } from '@/features/Counter/model/select-counter-status';
+import {
+    counterStatusChanged,
+    selectCounterStatus,
+} from '@/features/Counter/model/counter-status-slice';
+
 import { AltCounterButtons } from './AltCounterButtons/AltCounterButtons';
 import { CounterSettingsStand } from '../commonComponents/CounterSettingsStand/CounterSettingsStand';
 import { DisplayCounterStand } from '../commonComponents/DisplayCounterStand/DisplayCounterStand';
