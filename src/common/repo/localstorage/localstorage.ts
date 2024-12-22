@@ -1,6 +1,4 @@
-import { Repo } from '@/app/interfaces/repo';
-
-export class LocalStorageRepo implements Repo {
+class LocalStorageRepo {
     getItem(key: string): string | null {
         return localStorage.getItem(key);
     }
@@ -9,3 +7,7 @@ export class LocalStorageRepo implements Repo {
         localStorage.setItem(key, JSON.stringify(value));
     }
 }
+
+export const getLocalStorageRepo = () => {
+    return new LocalStorageRepo();
+};

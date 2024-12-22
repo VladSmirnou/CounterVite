@@ -1,5 +1,5 @@
 import { Display } from '@/common/components/Display/Display';
-import { ValuePanel } from '@/features/Counter/ui/CounterSettingsStand/ValuePanel/ValuePannel';
+import { ValuePanel } from '@/features/Counter/ui/Counter/CounterSpecies/common/components/CounterSettingsStand/ValuePanel/ValuePannel';
 import { fn } from '@storybook/test';
 import s from '../Display.module.css';
 

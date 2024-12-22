@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 
 function App() {
     return (
-        <Box sx={{ backgroundColor: '#292c35', height: '100vh' }}>
+        <Box sx={{ height: '100vh' }}>
             <CssBaseline enableColorScheme />
             <Header />
             <Outlet />

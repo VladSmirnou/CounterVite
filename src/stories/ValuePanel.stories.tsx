@@ -1,4 +1,4 @@
-import { ValuePanel } from '@/features/Counter/ui/CounterSettingsStand/ValuePanel/ValuePannel';
+import { ValuePanel } from '@/features/Counter/ui/Counter/CounterSpecies/common/components/CounterSettingsStand/ValuePanel/ValuePannel';
 import { fn } from '@storybook/test';
 
 export const ActionsData = {
